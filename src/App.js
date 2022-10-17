@@ -1,18 +1,17 @@
 import { useEffect } from "react";
 import "./App.css";
-const tg = window.Telegram.WebApp;
+import { Header } from "./components/Header/Header";
+import { useTelegram } from "./hooks/useTelegram";
 
-function App() {
+export const App = () => {
+  const { onToggleButton, tg } = useTelegram();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => tg.ready(), []); //Метод который подсказывает Telegram, что наше приложение полностью инициализировалось
-
-  const onClose = () => tg.close();
 
   return (
     <div className="App">
-      Work!
-      <button onClick={onClose}>Закрыть</button>
+      <Header />
+      <button onClick={onToggleButton}>Toggle</button>
     </div>
   );
-}
-
-export default App;
+};

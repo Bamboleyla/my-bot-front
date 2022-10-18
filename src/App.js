@@ -7,7 +7,7 @@ import { Form } from "./components/Forms/Form";
 import { useTelegram } from "./hooks/useTelegram";
 
 export const App = () => {
-  const { onToggleButton, tg } = useTelegram();
+  const { tg } = useTelegram();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => tg.ready(), []); //Метод который подсказывает Telegram, что наше приложение полностью инициализировалось
 

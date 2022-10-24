@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useTelegram } from "../../hooks/useTelegram";
 import { ProductItem } from "../ProductItem/ProductItem";
-import styles from "./productList";
+import styles from "./productList.module.scss";
 
 const products = [
   {

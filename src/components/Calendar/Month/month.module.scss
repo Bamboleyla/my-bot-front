@@ -1,0 +1,20 @@
+@import '../../../scss/colors.module.scss';
+
+.title{
+    width: 560px;
+    height: 40px;
+    background-color: $color-dark_grey;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    position: relative;
+    color: $color-white;
+    .month{
+        margin: 0 10px;
+    }
+    .year{
+        position: absolute;
+        right: 10px;
+    }
+}

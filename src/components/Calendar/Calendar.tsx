@@ -1,10 +1,13 @@
 import { Month } from "./Month/Month";
-import React, { FC } from "react";
+import { ListDaysOfWeek } from "./ListDays/ListDaysOfWeek";
+import { Days } from "./Days/Days";
 
-export const Calendar: FC = () => {
+export const Calendar = () => {
   return (
     <div>
       <Month />
+      <ListDaysOfWeek />
+      <Days />
     </div>
   );
 };

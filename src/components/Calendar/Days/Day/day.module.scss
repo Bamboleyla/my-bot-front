@@ -1,0 +1,33 @@
+@import "../../../../scss/colors.module.scss";
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .current,
+  .future,
+  .past,
+  .default {
+    border: 1px solid $color-black;
+    border-radius: 5px;
+    width: 60px;
+    height: 45px;
+    text-align: center;
+    line-height: 45px;
+  }
+  .future,
+  .past {
+    &:hover {
+      border-color: $color-red;
+      color: $color-red;
+      cursor: pointer;
+    }
+  }
+  .default {
+    border: none;
+  }
+  .current {
+    border-color: $color-red;
+    color: $color-red;
+  }
+}

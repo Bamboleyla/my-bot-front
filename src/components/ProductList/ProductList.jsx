@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useTelegram } from "../../hooks/useTelegram";
 import { ProductItem } from "../ProductItem/ProductItem";
 import styles from "./productList.module.scss";
+import { v4 as uuidv4 } from "uuid";
 
 const products = [
   {
@@ -112,7 +113,7 @@ export const ProductList = () => {
   return (
     <div className={styles.list}>
       {products.map((item) => (
-        <ProductItem product={item} onAdd={onAdd} />
+        <ProductItem key={uuidv4()} product={item} onAdd={onAdd} />
       ))}
     </div>
   );

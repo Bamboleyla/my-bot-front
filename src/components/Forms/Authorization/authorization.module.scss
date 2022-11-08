@@ -1,6 +1,16 @@
+@import "../../../scss/colors.module.scss";
 .form {
   display: flex;
-  justify-content: center;
   align-items: center;
+  flex-direction: column;
   height: 100vh;
+  img {
+    height: 500px;
+    margin-bottom: 20px;
+  }
+}
+.wrap {
+  border: 2px solid $color-dark_grey;
+  border-radius: 5px;
+  padding: 50px;
 }

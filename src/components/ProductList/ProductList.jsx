@@ -4,6 +4,7 @@ import { useTelegram } from "../../hooks/useTelegram";
 import { ProductItem } from "../ProductItem/ProductItem";
 import styles from "./productList.module.scss";
 import { v4 as uuidv4 } from "uuid";
+import { Header } from "../Header/Header";
 
 const products = [
   {
@@ -112,6 +113,7 @@ export const ProductList = () => {
 
   return (
     <div className={styles.list}>
+      <Header />
       {products.map((item) => (
         <ProductItem key={uuidv4()} product={item} onAdd={onAdd} />
       ))}

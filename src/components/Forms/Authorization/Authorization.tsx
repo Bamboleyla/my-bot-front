@@ -1,20 +1,17 @@
 import * as React from "react";
 import styles from "./authorization.module.scss";
 import Stack from "@mui/material/Stack";
-import TextField from "@mui/material/TextField";
-import FilledInput from "@mui/material/FilledInput";
-import InputLabel from "@mui/material/InputLabel";
-import InputAdornment from "@mui/material/InputAdornment";
-import FormControl from "@mui/material/FormControl";
-import IconButton from "@mui/material/IconButton";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import Button from "@mui/material/Button";
 import Logo from "./bots.jpg";
+import { PasswordField } from "./PasswordField";
+import { LoginField } from "./LoginField";
+import { useAuthorization } from "../../../hooks/useAuthorization";
 
-interface State {
+export interface State {
   login: string;
   password: string;
   showPassword: boolean;
+  errorsValidation: { login: string[]; password: string[] };
 }
 
 export const Authorization = () => {
@@ -22,64 +19,40 @@ export const Authorization = () => {
     login: "",
     password: "",
     showPassword: false,
+    errorsValidation: { login: [], password: [] },
   });
 
-  const handleChange =
-    (prop: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
-      setValues({ ...values, [prop]: event.target.value });
-    };
+  const { validationFields } = useAuthorization({ values, setValues });
 
-  const handleClickShowPassword = () => {
+  const validationForm = () => {
+    const resultValidationFieldLogin = validationFields("login");
+    const resultValidationFieldPassword = validationFields("password");
+
     setValues({
       ...values,
-      showPassword: !values.showPassword,
+      errorsValidation: {
+        login: resultValidationFieldLogin,
+        password: resultValidationFieldPassword,
+      },
     });
-  };
-
-  const handleMouseDownPassword = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.preventDefault();
   };
 
   return (
     <div className={styles.form}>
       <img src={Logo} alt="logo" />
       <div className={styles.wrap}>
-        <Stack spacing={2}>
-          <TextField
-            id="filled-basic"
-            label="Login"
-            variant="filled"
-            size="small"
-            onChange={handleChange("login")}
-            value={values.login}
-          />
-          <FormControl variant="filled">
-            <InputLabel htmlFor="filled-adornment-password">
-              Password
-            </InputLabel>
-            <FilledInput
-              id="filled-adornment-password"
-              type={values.showPassword ? "text" : "password"}
-              size="small"
-              value={values.password}
-              onChange={handleChange("password")}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    edge="end"
-                  >
-                    {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              }
-            />
-          </FormControl>
+        <Stack>
+          <LoginField values={values} setValues={setValues} />
+          <PasswordField values={values} setValues={setValues} />
         </Stack>
+        <div className={styles.buttons}>
+          <Stack spacing={2} direction="row">
+            <Button variant="contained" onClick={validationForm}>
+              Вход
+            </Button>
+            <Button variant="contained">Регистрация</Button>
+          </Stack>
+        </div>
       </div>
     </div>
   );

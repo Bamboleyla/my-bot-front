@@ -8,9 +8,26 @@
     height: 500px;
     margin-bottom: 20px;
   }
+  .wrap {
+    border: 2px solid $color-dark_grey;
+    border-radius: 5px;
+    padding: 50px;
+    .buttons {
+      margin-top: 16px;
+    }
+  }
 }
-.wrap {
-  border: 2px solid $color-dark_grey;
-  border-radius: 5px;
-  padding: 50px;
+.error {
+  color: #d32f2f;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-size: 0.75rem;
+  margin-top: 4px !important;
+  display: flex;
+  align-items: center;
+  .error_icon {
+    height: 20px;
+  }
+  .error_text {
+    margin-left: 4px;
+  }
 }

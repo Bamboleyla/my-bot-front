@@ -5,7 +5,7 @@ import Button from "@mui/material/Button";
 import Logo from "./bots.jpg";
 import { PasswordField } from "./PasswordField";
 import { LoginField } from "./LoginField";
-import { useAuthorization } from "../../../hooks/useAuthorization";
+import { useAuthorization } from "../../hooks/useAuthorization";
 
 export interface State {
   login: string;

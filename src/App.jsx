@@ -4,11 +4,12 @@ import { Route, Routes } from "react-router-dom";
 import styles from "./app.module.scss";
 import { ProductList } from "./components/ProductList/ProductList";
 import { Form } from "./components/Forms/Form";
-import { Authorization } from "./components/Forms/Authorization/Authorization";
 import { useTelegram } from "./hooks/useTelegram";
 import { Calendar } from "./components/Calendar/Calendar";
 import { useAppDispatch } from "./hooks/redux";
 import { todayDateSlice } from "./store/reducers/TodayDateSlice";
+import { Office } from "./pages/Office/Office";
+import { Authorization } from "./pages/Authorization/Authorization";
 
 export const App = () => {
   const { getDate } = todayDateSlice.actions;
@@ -30,6 +31,7 @@ export const App = () => {
         <Route path={"form"} element={<Form />} />
         <Route path={"calendar"} element={<Calendar />} />
         <Route path={"auth"} element={<Authorization />} />
+        <Route path={"ofice"} element={<Office />} />
       </Routes>
     </div>
   );

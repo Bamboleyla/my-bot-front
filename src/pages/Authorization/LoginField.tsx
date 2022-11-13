@@ -1,6 +1,6 @@
 import { FilledInput, FormControl, InputLabel } from "@mui/material";
 import { Dispatch, SetStateAction } from "react";
-import { useAuthorization } from "../../../hooks/useAuthorization";
+import { useAuthorization } from "../../hooks/useAuthorization";
 import { State } from "./Authorization";
 import { ErrorAuth } from "./ErrorAuth";
 

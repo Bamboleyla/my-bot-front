@@ -31,7 +31,7 @@ export const App = () => {
         <Route path={"form"} element={<Form />} />
         <Route path={"calendar"} element={<Calendar />} />
         <Route path={"auth"} element={<Authorization />} />
-        <Route path={"ofice"} element={<Office />} />
+        <Route path={"office/:user_id"} element={<Office />} />
       </Routes>
     </div>
   );

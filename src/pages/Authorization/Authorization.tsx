@@ -6,6 +6,9 @@ import Logo from "./bots.jpg";
 import { PasswordField } from "./PasswordField";
 import { LoginField } from "./LoginField";
 import { useAuthorization } from "../../hooks/useAuthorization";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import { userAC } from "../../store/action_creators/userAC";
+import { useNavigate } from "react-router-dom";
 
 export interface State {
   login: string;
@@ -22,20 +25,37 @@ export const Authorization = () => {
     errorsValidation: { login: [], password: [] },
   });
 
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
   const { validationFields } = useAuthorization({ values, setValues });
+
+  const { id } = useAppSelector((state) => state.userAuth);
 
   const validationForm = () => {
     const resultValidationFieldLogin = validationFields("login");
     const resultValidationFieldPassword = validationFields("password");
 
-    setValues({
-      ...values,
-      errorsValidation: {
-        login: resultValidationFieldLogin,
-        password: resultValidationFieldPassword,
-      },
-    });
+    if (
+      resultValidationFieldLogin.length === 0 &&
+      resultValidationFieldPassword.length === 0
+    ) {
+      dispatch(userAC(values.login, values.password));
+    } else {
+      setValues({
+        ...values,
+        errorsValidation: {
+          login: resultValidationFieldLogin,
+          password: resultValidationFieldPassword,
+        },
+      });
+    }
   };
+  React.useEffect(() => {
+    if (id > 0) {
+      navigate(`/office/${id}`, { replace: true });
+    }
+  }, [id]);
 
   return (
     <div className={styles.form}>

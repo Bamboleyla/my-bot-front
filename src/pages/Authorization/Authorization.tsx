@@ -51,11 +51,12 @@ export const Authorization = () => {
       });
     }
   };
+
   React.useEffect(() => {
     if (id > 0) {
       navigate(`/office/${id}`, { replace: true });
     }
-  }, [id]);
+  }, [id, navigate]);
 
   return (
     <div className={styles.form}>
@@ -70,7 +71,12 @@ export const Authorization = () => {
             <Button variant="contained" onClick={validationForm}>
               Вход
             </Button>
-            <Button variant="contained">Регистрация</Button>
+            <Button
+              variant="contained"
+              onClick={() => navigate(`/registration`, { replace: true })}
+            >
+              Регистрация
+            </Button>
           </Stack>
         </div>
       </div>

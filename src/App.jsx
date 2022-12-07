@@ -10,6 +10,7 @@ import { useAppDispatch } from "./hooks/redux";
 import { todayDateSlice } from "./store/reducers/TodayDateSlice";
 import { Office } from "./pages/Office/Office";
 import { Authorization } from "./pages/Authorization/Authorization";
+import { Registration } from "./pages/Registration/Registration";
 
 export const App = () => {
   const { getDate } = todayDateSlice.actions;
@@ -31,6 +32,7 @@ export const App = () => {
         <Route path={"form"} element={<Form />} />
         <Route path={"calendar"} element={<Calendar />} />
         <Route path={"auth"} element={<Authorization />} />
+        <Route path={"registration"} element={<Registration />} />
         <Route path={"office/:user_id"} element={<Office />} />
       </Routes>
     </div>

@@ -1,40 +1,19 @@
-import { InputAdornment } from "@mui/material";
-import TextField from "@mui/material/TextField";
-import { Box, Stack } from "@mui/system";
-import { v4 as uuidv4 } from "uuid";
+import { Dispatch, SetStateAction } from "react";
+import { Box } from "@mui/system";
+import { Fields } from "./Fields/Fields";
+import { Buttons } from "./Buttons/Buttons";
 
-export const FormRegistration = ({ activeStep }: { activeStep: number }) => {
-  const textFieldList = [
-    [{ label: "Фамилия" }, { label: "Имя" }, { label: "Отчество" }],
-    [
-      {
-        inputProps: {
-          startAdornment: <InputAdornment position="start">+7</InputAdornment>,
-        },
-        label: "Телефон",
-      },
-      { label: "Email" },
-      { disabled: true, label: "Страна", defaultValue: "Россия" },
-      { label: "Город" },
-    ],
-    [{ label: "Номер Договора" }, { label: "Логин" }, { label: "Пароль" }],
-    [],
-  ];
+export type FormRegistrationType = {
+  activeStep: number;
+  setActiveStep: Dispatch<SetStateAction<number>>;
+  steps: string[];
+};
+
+export const FormRegistration = (props: FormRegistrationType) => {
   return (
     <Box sx={{ width: "40ch" }}>
-      <Stack spacing={2}>
-        {textFieldList[activeStep].map((field) => (
-          <TextField
-            disabled={field.disabled}
-            id="filled-basic"
-            label={field.label}
-            defaultValue={field.defaultValue}
-            variant="filled"
-            InputProps={field.inputProps}
-            key={uuidv4()}
-          />
-        ))}
-      </Stack>
+      <Fields activeStep={props.activeStep} />
+      <Buttons {...props} />
     </Box>
   );
 };

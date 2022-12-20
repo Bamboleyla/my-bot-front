@@ -18,6 +18,7 @@ const initialState: DateState = {
   isLoading: false,
   error: "",
 };
+
 export const todayDateSlice = createSlice({
   name: "current",
   initialState,

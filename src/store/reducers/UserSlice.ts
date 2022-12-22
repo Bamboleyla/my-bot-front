@@ -4,12 +4,14 @@ interface UserState {
   id: number;
   name: string;
   isLoading: boolean;
+  isDarkBrowserModeEnabled: boolean;
 }
 
 const initialState: UserState = {
   id: 0,
   name: "",
   isLoading: true,
+  isDarkBrowserModeEnabled: false,
 };
 
 export const userSlice = createSlice({
@@ -33,6 +35,9 @@ export const userSlice = createSlice({
     userAuthError(state, action) {
       state.isLoading = false;
       console.error(action.payload);
+    },
+    setDarkBrowserMode(state, action) {
+      state.isDarkBrowserModeEnabled = action.payload.value;
     },
   },
 });

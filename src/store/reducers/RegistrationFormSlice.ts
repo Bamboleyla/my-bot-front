@@ -1,74 +1,119 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface RegistrationState {
-  firstName: string;
-  lastName: string;
-  middleName: string;
-  phoneNumber: string;
-  email: string;
-  country: string;
-  city: string;
-  contractNumber: string;
-  tgToken: string;
-  login: string;
-  password: string;
-  repeatPassword: string;
+  firstName: { value: string; error: boolean; errorText: string };
+  lastName: { value: string; error: boolean; errorText: string };
+  middleName: { value: string; error: boolean; errorText: string };
+  phoneNumber: { value: string; error: boolean; errorText: string };
+  email: { value: string; error: boolean; errorText: string };
+  country: { value: string; error: boolean; errorText: string };
+  city: { value: string; error: boolean; errorText: string };
+  tgToken: { value: string; error: boolean; errorText: string };
+  login: { value: string; error: boolean; errorText: string };
+  password: { value: string; error: boolean; errorText: string };
+  repeatPassword: { value: string; error: boolean; errorText: string };
 }
 
 const initialState: RegistrationState = {
-  firstName: "",
-  lastName: "",
-  middleName: "",
-  phoneNumber: "",
-  email: "",
-  country: "Россия",
-  city: "",
-  contractNumber: "",
-  tgToken: "",
-  login: "",
-  password: "",
-  repeatPassword: "",
+  firstName: { value: "", error: false, errorText: "" },
+  lastName: { value: "", error: false, errorText: "" },
+  middleName: { value: "", error: false, errorText: "" },
+  phoneNumber: { value: "+7", error: false, errorText: "" },
+  email: { value: "", error: false, errorText: "" },
+  country: { value: "Россия", error: false, errorText: "" },
+  city: { value: "", error: false, errorText: "" },
+  tgToken: { value: "", error: false, errorText: "" },
+  login: { value: "", error: false, errorText: "" },
+  password: { value: "", error: false, errorText: "" },
+  repeatPassword: { value: "", error: false, errorText: "" },
 };
 
 export const registrationFormSlice = createSlice({
   name: "registrationForm",
   initialState,
   reducers: {
-    setFirstName(state, action: PayloadAction<{ value: string }>) {
-      state.firstName = action.payload.value;
+    setFirstName(
+      state,
+      action: PayloadAction<{ value: string; error: boolean; text: string }>
+    ) {
+      state.firstName.value = action.payload.value;
+      state.firstName.error = action.payload.error;
+      state.firstName.errorText = action.payload.text;
     },
-    setLastName(state, action: PayloadAction<{ value: string }>) {
-      state.lastName = action.payload.value;
+    setLastName(
+      state,
+      action: PayloadAction<{ value: string; error: boolean; text: string }>
+    ) {
+      state.lastName.value = action.payload.value;
+      state.lastName.error = action.payload.error;
+      state.lastName.errorText = action.payload.text;
     },
-    setMiddleName(state, action: PayloadAction<{ value: string }>) {
-      state.middleName = action.payload.value;
+    setMiddleName(
+      state,
+      action: PayloadAction<{ value: string; error: boolean; text: string }>
+    ) {
+      state.middleName.value = action.payload.value;
+      state.middleName.error = action.payload.error;
+      state.middleName.errorText = action.payload.text;
     },
     setPhoneNumber(state, action: PayloadAction<{ value: string }>) {
-      state.phoneNumber = action.payload.value;
+      state.phoneNumber.value = action.payload.value;
     },
-    setEmail(state, action: PayloadAction<{ value: string }>) {
-      state.email = action.payload.value;
+    setEmail(
+      state,
+      action: PayloadAction<{ value: string; error: boolean; text: string }>
+    ) {
+      state.email.value = action.payload.value;
+      state.email.error = action.payload.error;
+      state.email.errorText = action.payload.text;
     },
-    setCountry(state, action: PayloadAction<{ value: string }>) {
-      state.country = action.payload.value;
+    setCountry(
+      state,
+      action: PayloadAction<{ value: string; error: boolean; text: string }>
+    ) {
+      state.country.value = action.payload.value;
+      state.country.error = action.payload.error;
+      state.country.errorText = action.payload.text;
     },
-    setCity(state, action: PayloadAction<{ value: string }>) {
-      state.city = action.payload.value;
+    setCity(
+      state,
+      action: PayloadAction<{ value: string; error: boolean; text: string }>
+    ) {
+      state.city.value = action.payload.value;
+      state.city.error = action.payload.error;
+      state.city.errorText = action.payload.text;
     },
-    setContractNumber(state, action: PayloadAction<{ value: string }>) {
-      state.contractNumber = action.payload.value;
+    setTgToken(
+      state,
+      action: PayloadAction<{ value: string; error: boolean; text: string }>
+    ) {
+      state.tgToken.value = action.payload.value;
+      state.tgToken.error = action.payload.error;
+      state.tgToken.errorText = action.payload.text;
     },
-    setTgToken(state, action: PayloadAction<{ value: string }>) {
-      state.tgToken = action.payload.value;
+    setLogin(
+      state,
+      action: PayloadAction<{ value: string; error: boolean; text: string }>
+    ) {
+      state.login.value = action.payload.value;
+      state.login.error = action.payload.error;
+      state.login.errorText = action.payload.text;
     },
-    setLogin(state, action: PayloadAction<{ value: string }>) {
-      state.login = action.payload.value;
+    setPassword(
+      state,
+      action: PayloadAction<{ value: string; error: boolean; text: string }>
+    ) {
+      state.password.value = action.payload.value;
+      state.password.error = action.payload.error;
+      state.password.errorText = action.payload.text;
     },
-    setPassword(state, action: PayloadAction<{ value: string }>) {
-      state.password = action.payload.value;
-    },
-    setRepeatPassword(state, action: PayloadAction<{ value: string }>) {
-      state.repeatPassword = action.payload.value;
+    setRepeatPassword(
+      state,
+      action: PayloadAction<{ value: string; error: boolean; text: string }>
+    ) {
+      state.repeatPassword.value = action.payload.value;
+      state.repeatPassword.error = action.payload.error;
+      state.repeatPassword.errorText = action.payload.text;
     },
   },
 });

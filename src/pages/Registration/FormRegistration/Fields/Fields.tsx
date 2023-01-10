@@ -1,92 +1,113 @@
-import { InputAdornment } from "@mui/material";
 import { Stack } from "@mui/system";
 import { v4 as uuidv4 } from "uuid";
 import { useAppDispatch } from "../../../../hooks/redux";
 import { registrationFormSlice } from "../../../../store/reducers/RegistrationFormSlice";
 import { Field } from "./Field/Field";
-import { getPhoneNumberAccordingToTheTemplate } from "./fields.utils";
+import {
+  getCyrillicStringAccordingToTheTemplate,
+  getPhoneNumberAccordingToTheTemplate,
+  getLatinStringAccordingToTheTemplate,
+} from "./fields.utils";
 
 export const Fields = ({ activeStep }: { activeStep: number }) => {
   const dispatch = useAppDispatch();
-
-  const setPhoneNumber = (inputValue: string, storePhoneNumber: string) =>
-    dispatch(
-      registrationFormSlice.actions.setPhoneNumber(
-        getPhoneNumberAccordingToTheTemplate(inputValue, storePhoneNumber)
-      )
-    );
+  const {
+    setLastName,
+    setFirstName,
+    setMiddleName,
+    setPhoneNumber,
+    setEmail,
+    setCountry,
+    setCity,
+    setTgToken,
+    setLogin,
+    setPassword,
+    setRepeatPassword,
+  } = registrationFormSlice.actions;
 
   const textFieldList = [
     [
       {
         label: "Фамилия",
         valueKey: "lastName",
-        setValue: registrationFormSlice.actions.setLastName,
+        setValue: (value: string) =>
+          dispatch(setLastName(getCyrillicStringAccordingToTheTemplate(value))),
       },
       {
         label: "Имя",
         valueKey: "firstName",
-        setValue: registrationFormSlice.actions.setFirstName,
+        setValue: (value: string) =>
+          dispatch(
+            setFirstName(getCyrillicStringAccordingToTheTemplate(value))
+          ),
       },
       {
         label: "Отчество",
         valueKey: "middleName",
-        setValue: registrationFormSlice.actions.setMiddleName,
+        setValue: (value: string) =>
+          dispatch(
+            setMiddleName(getCyrillicStringAccordingToTheTemplate(value))
+          ),
       },
     ],
     [
       {
-        inputProps: {
-          startAdornment: <InputAdornment position="start">+7</InputAdornment>,
-        },
         label: "Телефон",
-        setValue: setPhoneNumber,
         valueKey: "phoneNumber",
+        setValue: (value: string, storePhoneNumber: string) =>
+          dispatch(
+            setPhoneNumber(
+              getPhoneNumberAccordingToTheTemplate(value, storePhoneNumber)
+            )
+          ),
       },
       {
         label: "Email",
         valueKey: "email",
-        setValue: registrationFormSlice.actions.setEmail,
+        setValue: (value: string) =>
+          dispatch(setEmail({ value, error: false, text: "" })),
       },
       {
         disabled: true,
         label: "Страна",
         valueKey: "country",
-        setValue: registrationFormSlice.actions.setCountry,
+        setValue: setCountry,
       },
       {
         label: "Город",
         valueKey: "city",
-        setValue: registrationFormSlice.actions.setCity,
+        setValue: (value: string) =>
+          dispatch(setCity(getCyrillicStringAccordingToTheTemplate(value))),
       },
     ],
     [
       {
-        label: "Номер Договора",
-        valueKey: "contractNumber",
-        setValue: registrationFormSlice.actions.setContractNumber,
-      },
-      {
         label: "Telegram Токен",
         valueKey: "tgToken",
-        setValue: registrationFormSlice.actions.setTgToken,
+        setValue: (value: string) =>
+          dispatch(setTgToken({ value, error: false, text: "" })),
       },
     ],
     [
       {
         label: "Логин",
         valueKey: "login",
-        setValue: registrationFormSlice.actions.setLogin,
+        setValue: (value: string) =>
+          dispatch(setLogin(getLatinStringAccordingToTheTemplate(value))),
       },
       {
         label: "Пароль",
         valueKey: "password",
-        setValue: registrationFormSlice.actions.setPassword,
+        setValue: (value: string) =>
+          dispatch(setPassword(getLatinStringAccordingToTheTemplate(value))),
       },
       {
         label: "Повторите пароль",
         valueKey: "repeatPassword",
-        setValue: registrationFormSlice.actions.setRepeatPassword,
+        setValue: (value: string) =>
+          dispatch(
+            setRepeatPassword(getLatinStringAccordingToTheTemplate(value))
+          ),
       },
     ],
     [],

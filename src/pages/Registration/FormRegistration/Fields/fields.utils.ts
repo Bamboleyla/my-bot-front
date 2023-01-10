@@ -1,12 +1,12 @@
 const editNumberAccordingToTheTemplate = (
   numbers: RegExpMatchArray | string[]
 ): string => {
-  let phone = "";
+  let phone = "+7";
 
   numbers.forEach((number, index) => {
-    if (index === 0) phone = `(${number}`;
-    else if (index === 2) phone = `${phone}${number}) `;
-    else if (index === 5) phone = `${phone}${number} `;
+    if (index === 0) phone = `+7(`;
+    else if (index === 3) phone = `${phone}${number}) `;
+    else if (index === 6) phone = `${phone}${number} `;
     else phone = `${phone}${number}`;
   });
 
@@ -31,14 +31,17 @@ const removesDigitsFromPhoneNumber = (
     case 0:
       numberIndex = 0;
       break;
-    case 4:
-      numberIndex = 2;
+    case 2:
+      numberIndex = 1;
       break;
-    case 5:
-      numberIndex = 2;
+    case 6:
+      numberIndex = 3;
       break;
-    case 9:
-      numberIndex = 5;
+    case 7:
+      numberIndex = 3;
+      break;
+    case 11:
+      numberIndex = 6;
       break;
     default:
       console.error(
@@ -70,10 +73,43 @@ export const getPhoneNumberAccordingToTheTemplate = (
         getOnlyNumbersFromValue,
         indexOfDeletedCharacter
       );
-    }
+    } else if (getOnlyNumbersFromValue.length > 11)
+      return { value: phoneNumberFromStore };
 
     return {
       value: editNumberAccordingToTheTemplate(getOnlyNumbersFromValue),
     };
   } else return { value: "" };
 };
+
+//Валидирует строку от любых символов не из Кириллицы, первую букву делает заглавной
+export const getCyrillicStringAccordingToTheTemplate = (
+  value: string
+): { value: string; error: boolean; text: string } => {
+  if (/[^А-Яа-я]/g.test(value)) {
+    return {
+      value,
+      error: true,
+      text: "В это поле можно ввести только буквы из Кириллицы",
+    };
+  }
+  const stringWithCapitalLetter =
+    value.charAt(0).toUpperCase() + value.toLocaleLowerCase().slice(1);
+
+  return { value: stringWithCapitalLetter, error: false, text: "" };
+};
+
+export const getLatinStringAccordingToTheTemplate = (
+  value: string
+): { value: string; error: boolean; text: string } =>
+  /\W/g.test(value)
+    ? {
+        value,
+        error: true,
+        text: "Могут использоваться только Латинские буквы, цифры и подчеркивание",
+      }
+    : {
+        value,
+        error: false,
+        text: "",
+      };

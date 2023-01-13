@@ -55,7 +55,7 @@ const removesDigitsFromPhoneNumber = (
 export const getPhoneNumberAccordingToTheTemplate = (
   phoneNumberFromEvent: string,
   phoneNumberFromStore: string
-): { value: string } => {
+): { value: string; error: boolean; text: string } => {
   const getOnlyNumbersFromValue = phoneNumberFromEvent.match(/\d/g);
 
   if (getOnlyNumbersFromValue) {
@@ -74,15 +74,16 @@ export const getPhoneNumberAccordingToTheTemplate = (
         indexOfDeletedCharacter
       );
     } else if (getOnlyNumbersFromValue.length > 11)
-      return { value: phoneNumberFromStore };
+      return { value: phoneNumberFromStore, error: false, text: "" };
 
     return {
       value: editNumberAccordingToTheTemplate(getOnlyNumbersFromValue),
+      error: false,
+      text: "",
     };
-  } else return { value: "" };
+  } else return { value: "", error: false, text: "" };
 };
 
-//Валидирует строку от любых символов не из Кириллицы, первую букву делает заглавной
 export const getCyrillicStringAccordingToTheTemplate = (
   value: string
 ): { value: string; error: boolean; text: string } => {
@@ -99,7 +100,7 @@ export const getCyrillicStringAccordingToTheTemplate = (
   return { value: stringWithCapitalLetter, error: false, text: "" };
 };
 
-export const getLatinStringAccordingToTheTemplate = (
+export const getPasswordAccordingToTheTemplate = (
   value: string
 ): { value: string; error: boolean; text: string } =>
   /\W/g.test(value)
@@ -113,3 +114,19 @@ export const getLatinStringAccordingToTheTemplate = (
         error: false,
         text: "",
       };
+
+export const getEmailAccordingToTheTemplate = (
+  value: string
+): { value: string; error: boolean; text: string } => {
+  return /[^a-z0-9@._]/g.test(value)
+    ? {
+        value,
+        error: true,
+        text: "Могут использоваться только не заглавный Латинские буквы, цифры,нижнее подчеркивание и @",
+      }
+    : {
+        value,
+        error: false,
+        text: "",
+      };
+};

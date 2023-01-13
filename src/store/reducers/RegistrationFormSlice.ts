@@ -9,7 +9,6 @@ interface RegistrationState {
   country: { value: string; error: boolean; errorText: string };
   city: { value: string; error: boolean; errorText: string };
   tgToken: { value: string; error: boolean; errorText: string };
-  login: { value: string; error: boolean; errorText: string };
   password: { value: string; error: boolean; errorText: string };
   repeatPassword: { value: string; error: boolean; errorText: string };
 }
@@ -23,7 +22,6 @@ const initialState: RegistrationState = {
   country: { value: "Россия", error: false, errorText: "" },
   city: { value: "", error: false, errorText: "" },
   tgToken: { value: "", error: false, errorText: "" },
-  login: { value: "", error: false, errorText: "" },
   password: { value: "", error: false, errorText: "" },
   repeatPassword: { value: "", error: false, errorText: "" },
 };
@@ -56,8 +54,13 @@ export const registrationFormSlice = createSlice({
       state.middleName.error = action.payload.error;
       state.middleName.errorText = action.payload.text;
     },
-    setPhoneNumber(state, action: PayloadAction<{ value: string }>) {
+    setPhoneNumber(
+      state,
+      action: PayloadAction<{ value: string; error: boolean; text: string }>
+    ) {
       state.phoneNumber.value = action.payload.value;
+      state.phoneNumber.error = action.payload.error;
+      state.phoneNumber.errorText = action.payload.text;
     },
     setEmail(
       state,
@@ -90,14 +93,6 @@ export const registrationFormSlice = createSlice({
       state.tgToken.value = action.payload.value;
       state.tgToken.error = action.payload.error;
       state.tgToken.errorText = action.payload.text;
-    },
-    setLogin(
-      state,
-      action: PayloadAction<{ value: string; error: boolean; text: string }>
-    ) {
-      state.login.value = action.payload.value;
-      state.login.error = action.payload.error;
-      state.login.errorText = action.payload.text;
     },
     setPassword(
       state,

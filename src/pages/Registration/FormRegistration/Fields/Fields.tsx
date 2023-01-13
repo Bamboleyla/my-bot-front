@@ -6,7 +6,8 @@ import { Field } from "./Field/Field";
 import {
   getCyrillicStringAccordingToTheTemplate,
   getPhoneNumberAccordingToTheTemplate,
-  getLatinStringAccordingToTheTemplate,
+  getEmailAccordingToTheTemplate,
+  getPasswordAccordingToTheTemplate,
 } from "./fields.utils";
 
 export const Fields = ({ activeStep }: { activeStep: number }) => {
@@ -20,7 +21,6 @@ export const Fields = ({ activeStep }: { activeStep: number }) => {
     setCountry,
     setCity,
     setTgToken,
-    setLogin,
     setPassword,
     setRepeatPassword,
   } = registrationFormSlice.actions;
@@ -65,7 +65,7 @@ export const Fields = ({ activeStep }: { activeStep: number }) => {
         label: "Email",
         valueKey: "email",
         setValue: (value: string) =>
-          dispatch(setEmail({ value, error: false, text: "" })),
+          dispatch(setEmail(getEmailAccordingToTheTemplate(value))),
       },
       {
         disabled: true,
@@ -90,24 +90,16 @@ export const Fields = ({ activeStep }: { activeStep: number }) => {
     ],
     [
       {
-        label: "Логин",
-        valueKey: "login",
-        setValue: (value: string) =>
-          dispatch(setLogin(getLatinStringAccordingToTheTemplate(value))),
-      },
-      {
         label: "Пароль",
         valueKey: "password",
         setValue: (value: string) =>
-          dispatch(setPassword(getLatinStringAccordingToTheTemplate(value))),
+          dispatch(setPassword(getPasswordAccordingToTheTemplate(value))),
       },
       {
         label: "Повторите пароль",
         valueKey: "repeatPassword",
         setValue: (value: string) =>
-          dispatch(
-            setRepeatPassword(getLatinStringAccordingToTheTemplate(value))
-          ),
+          dispatch(setRepeatPassword(getPasswordAccordingToTheTemplate(value))),
       },
     ],
     [],

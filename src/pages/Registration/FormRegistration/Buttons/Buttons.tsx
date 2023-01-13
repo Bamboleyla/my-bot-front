@@ -2,12 +2,15 @@ import * as React from "react";
 import styles from "./buttons.module.scss";
 import { Button, Box, Typography } from "@mui/material";
 import { FormRegistrationType } from "../FormRegistration";
+import { useRegistration } from "../../useRegistration";
 
 export const Buttons = ({
   activeStep,
   setActiveStep,
   steps,
 }: FormRegistrationType) => {
+  const { isThereErrorInTheTextField } = useRegistration();
+
   return (
     <div className={styles.buttons}>
       {activeStep === steps.length ? (
@@ -36,7 +39,11 @@ export const Buttons = ({
             <Box sx={{ flex: "1 1 auto" }} />
             <Button
               onClick={() =>
-                setActiveStep((prevActiveStep) => prevActiveStep + 1)
+                setActiveStep((prevActiveStep) => {
+                  return isThereErrorInTheTextField(prevActiveStep)
+                    ? prevActiveStep
+                    : prevActiveStep + 1;
+                })
               }
             >
               {activeStep === steps.length - 1 ? "Отправить данные" : "Вперёд"}

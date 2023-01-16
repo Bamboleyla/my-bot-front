@@ -83,8 +83,32 @@ export const useRegistration = () => {
         if (formValues.repeatPassword.value !== formValues.password.value)
           formatsResponse(
             setRepeatPassword,
-            ...Array(1),
+            formValues.repeatPassword.value,
             "Пароль не совпадает"
+          );
+        if (formValues.password.value.length < 6)
+          formatsResponse(
+            setPassword,
+            formValues.password.value,
+            "Пароль не может быть короче 6 символов"
+          );
+        if (!/[A-Z]/g.test(formValues.password.value))
+          formatsResponse(
+            setPassword,
+            formValues.password.value,
+            "Пароль должен содержать хотя бы одну заглавную букву"
+          );
+        if (!/[a-z]/g.test(formValues.password.value))
+          formatsResponse(
+            setPassword,
+            formValues.password.value,
+            "Пароль должен содержать хотя бы одну строчную букву"
+          );
+        if (!/[0-9]/g.test(formValues.password.value))
+          formatsResponse(
+            setPassword,
+            formValues.password.value,
+            "Пароль должен содержать хотя бы одну цифру"
           );
         return isThereError;
       default:

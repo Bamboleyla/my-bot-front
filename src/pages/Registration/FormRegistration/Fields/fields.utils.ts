@@ -1,3 +1,9 @@
+const fillAnswer = (
+  value: string = "",
+  error: boolean = false,
+  text: string = ""
+) => ({ value, error, text });
+
 const editNumberAccordingToTheTemplate = (
   numbers: RegExpMatchArray | string[]
 ): string => {
@@ -74,14 +80,11 @@ export const getPhoneNumberAccordingToTheTemplate = (
         indexOfDeletedCharacter
       );
     } else if (getOnlyNumbersFromValue.length > 11)
-      return { value: phoneNumberFromStore, error: false, text: "" };
-
-    return {
-      value: editNumberAccordingToTheTemplate(getOnlyNumbersFromValue),
-      error: false,
-      text: "",
-    };
-  } else return { value: "", error: false, text: "" };
+      return fillAnswer(phoneNumberFromStore);
+    return fillAnswer(
+      editNumberAccordingToTheTemplate(getOnlyNumbersFromValue)
+    );
+  } else return fillAnswer();
 };
 
 export const getCyrillicStringAccordingToTheTemplate = (
@@ -97,23 +100,20 @@ export const getCyrillicStringAccordingToTheTemplate = (
   const stringWithCapitalLetter =
     value.charAt(0).toUpperCase() + value.toLocaleLowerCase().slice(1);
 
-  return { value: stringWithCapitalLetter, error: false, text: "" };
+  return fillAnswer(stringWithCapitalLetter);
 };
 
 export const getPasswordAccordingToTheTemplate = (
   value: string
-): { value: string; error: boolean; text: string } =>
-  /\W/g.test(value)
+): { value: string; error: boolean; text: string } => {
+  return /[^A-Za-z\d_-]/g.test(value)
     ? {
         value,
         error: true,
         text: "Могут использоваться только Латинские буквы, цифры и подчеркивание",
       }
-    : {
-        value,
-        error: false,
-        text: "",
-      };
+    : fillAnswer(value);
+};
 
 export const getEmailAccordingToTheTemplate = (
   value: string
@@ -124,9 +124,5 @@ export const getEmailAccordingToTheTemplate = (
         error: true,
         text: "Могут использоваться только не заглавный Латинские буквы, цифры,нижнее подчеркивание и @",
       }
-    : {
-        value,
-        error: false,
-        text: "",
-      };
+    : fillAnswer(value);
 };

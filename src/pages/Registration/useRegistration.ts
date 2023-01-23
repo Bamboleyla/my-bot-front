@@ -1,3 +1,4 @@
+import { isEmailAlreadyRegistered } from "./../../store/action_creators/registrationAC";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { registrationFormSlice } from "../../store/reducers/RegistrationFormSlice";
 
@@ -37,35 +38,40 @@ export const useRegistration = () => {
     switch (step) {
       case 0:
         if (
-          formValues.firstName.error ||
-          formValues.middleName.error ||
-          formValues.lastName.error
+          formValues.data.firstName.error ||
+          formValues.data.middleName.error ||
+          formValues.data.lastName.error
         )
           return true;
-        if (formValues.firstName.value === "") formatsResponse(setFirstName);
-        if (formValues.middleName.value === "") formatsResponse(setMiddleName);
-        if (formValues.lastName.value === "") formatsResponse(setLastName);
+        if (formValues.data.firstName.value === "")
+          formatsResponse(setFirstName);
+        if (formValues.data.middleName.value === "")
+          formatsResponse(setMiddleName);
+        if (formValues.data.lastName.value === "") formatsResponse(setLastName);
         return isThereError;
       case 1:
         if (
-          formValues.phoneNumber.error ||
-          formValues.email.error ||
-          formValues.city.error
+          formValues.data.phoneNumber.error ||
+          formValues.data.email.error ||
+          formValues.data.city.error
         )
           return true;
-        if (formValues.phoneNumber.value === "+7")
+        if (formValues.data.phoneNumber.value === "+7")
           formatsResponse(setPhoneNumber, "+7", "Укажите свой номер телефона");
-        if (formValues.phoneNumber.value.length < 16)
+        if (formValues.data.phoneNumber.value.length < 16)
           formatsResponse(
             setPhoneNumber,
-            formValues.phoneNumber.value,
+            formValues.data.phoneNumber.value,
             "Номер телефона не может быть короче 11 цифер"
           );
-        if (formValues.email.value === "") formatsResponse(setEmail);
-        if (formValues.city.value === "") formatsResponse(setCity);
+        if (formValues.data.email.value === "") formatsResponse(setEmail);
+        if (formValues.data.city.value === "") formatsResponse(setCity);
+        dispatch(
+          isEmailAlreadyRegistered(formValues.data.email.value, isThereError)
+        ).then();
         return isThereError;
       case 2:
-        if (formValues.tgToken.value === "") {
+        if (formValues.data.tgToken.value === "") {
           isThereError = true;
           dispatch(
             setTgToken({
@@ -77,37 +83,40 @@ export const useRegistration = () => {
         }
         return isThereError;
       case 3:
-        if (formValues.password.value === "") formatsResponse(setPassword);
-        if (formValues.repeatPassword.value === "")
+        if (formValues.data.password.value === "") formatsResponse(setPassword);
+        if (formValues.data.repeatPassword.value === "")
           formatsResponse(setRepeatPassword);
-        if (formValues.repeatPassword.value !== formValues.password.value)
+        if (
+          formValues.data.repeatPassword.value !==
+          formValues.data.password.value
+        )
           formatsResponse(
             setRepeatPassword,
-            formValues.repeatPassword.value,
+            formValues.data.repeatPassword.value,
             "Пароль не совпадает"
           );
-        if (formValues.password.value.length < 6)
+        if (formValues.data.password.value.length < 6)
           formatsResponse(
             setPassword,
-            formValues.password.value,
+            formValues.data.password.value,
             "Пароль не может быть короче 6 символов"
           );
-        if (!/[A-Z]/g.test(formValues.password.value))
+        if (!/[A-Z]/g.test(formValues.data.password.value))
           formatsResponse(
             setPassword,
-            formValues.password.value,
+            formValues.data.password.value,
             "Пароль должен содержать хотя бы одну заглавную букву"
           );
-        if (!/[a-z]/g.test(formValues.password.value))
+        if (!/[a-z]/g.test(formValues.data.password.value))
           formatsResponse(
             setPassword,
-            formValues.password.value,
+            formValues.data.password.value,
             "Пароль должен содержать хотя бы одну строчную букву"
           );
-        if (!/[0-9]/g.test(formValues.password.value))
+        if (!/[0-9]/g.test(formValues.data.password.value))
           formatsResponse(
             setPassword,
-            formValues.password.value,
+            formValues.data.password.value,
             "Пароль должен содержать хотя бы одну цифру"
           );
         return isThereError;
@@ -116,5 +125,6 @@ export const useRegistration = () => {
         return false;
     }
   };
+
   return { isThereErrorInTheTextField };
 };

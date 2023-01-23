@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Visibility from "@mui/icons-material/Visibility";
+import { IRegistrationState } from "../../../../../store/reducers/RegistrationFormSlice";
 
 type props = {
   disabled?: boolean | undefined;
@@ -20,8 +21,11 @@ type props = {
 };
 
 export const Field = ({ disabled, label, valueKey, setValue }: props) => {
-  const formValues = useAppSelector((state) => state.registrationForm);
-  const fieldData = formValues[valueKey as keyof typeof formValues];
+  const formValues: IRegistrationState = useAppSelector(
+    (state) => state.registrationForm
+  );
+  const fieldData: { value: string; error: boolean; errorText: string } =
+    formValues.data[valueKey as keyof typeof formValues.data];
 
   const [showPassword, setShowPassword] = React.useState(false);
 

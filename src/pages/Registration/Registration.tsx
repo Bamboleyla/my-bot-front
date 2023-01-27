@@ -1,24 +1,21 @@
 import styles from "./registration.module.scss";
-import * as React from "react";
 import { ProgressRegistration } from "./ProgressRegistration/ProgressRegistration";
-import { FormRegistration } from "./FormRegistration/FormRegistration";
+import FormRegistration from "./FormRegistration/FormRegistration";
+import { useAppSelector } from "../../hooks/redux";
 
-const steps = ["Шаг1", "Шаг2", "Шаг3", "Шаг4"];
+export const steps = ["Шаг1", "Шаг2", "Шаг3", "Шаг4"];
+
+const Title = () => <div className={styles.title}>Регистрация</div>;
 
 export const Registration = () => {
-  const [activeStep, setActiveStep] = React.useState(0);
+  const { activeStep } = useAppSelector((state) => state.registrationForm);
+
   return (
     <div className={styles.body}>
-      <ProgressRegistration activeStep={activeStep} steps={steps} />
+      <ProgressRegistration />
       <div className={styles.form}>
-        {activeStep !== steps.length && (
-          <div className={styles.title}>Регистрация</div>
-        )}
-        <FormRegistration
-          activeStep={activeStep}
-          setActiveStep={setActiveStep}
-          steps={steps}
-        />
+        {activeStep !== steps.length && <Title />}
+        <FormRegistration />
       </div>
     </div>
   );

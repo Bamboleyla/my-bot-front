@@ -66,9 +66,7 @@ export const useRegistration = () => {
           );
         if (formValues.data.email.value === "") formatsResponse(setEmail);
         if (formValues.data.city.value === "") formatsResponse(setCity);
-        dispatch(
-          isEmailAlreadyRegistered(formValues.data.email.value, isThereError)
-        ).then();
+        dispatch(isEmailAlreadyRegistered(formValues.data.email.value));
         return isThereError;
       case 2:
         if (formValues.data.tgToken.value === "") {

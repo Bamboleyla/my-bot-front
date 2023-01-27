@@ -14,6 +14,7 @@ export interface IRegistrationState {
     repeatPassword: { value: string; error: boolean; errorText: string };
   };
   isLoading: boolean;
+  activeStep: number;
 }
 
 const initialState: IRegistrationState = {
@@ -30,6 +31,7 @@ const initialState: IRegistrationState = {
     repeatPassword: { value: "", error: false, errorText: "" },
   },
   isLoading: false,
+  activeStep: 0,
 };
 
 export const registrationFormSlice = createSlice({
@@ -118,6 +120,10 @@ export const registrationFormSlice = createSlice({
     },
     setLoading(state, action: PayloadAction<{ value: boolean }>) {
       state.isLoading = action.payload.value;
+    },
+    setActiveStep(state, action: PayloadAction<{ value: number }>) {
+      console.log(action.payload.value);
+      state.activeStep = action.payload.value;
     },
   },
 });

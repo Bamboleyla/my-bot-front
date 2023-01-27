@@ -3,13 +3,11 @@ import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
+import { useAppSelector } from "../../../hooks/redux";
+import { steps } from "../Registration";
 
-type props = {
-  activeStep: number;
-  steps: string[];
-};
-
-export const ProgressRegistration = ({ activeStep, steps }: props) => {
+export const ProgressRegistration = () => {
+  const { activeStep } = useAppSelector((state) => state.registrationForm);
   return (
     <div className={styles.progress}>
       <Box sx={{ width: "100%" }}>

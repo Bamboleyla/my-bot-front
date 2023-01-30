@@ -9,9 +9,16 @@ const API = axios.create({
 export const authUserAPI = (data: { login: string; password: string }) =>
   API.post("/api/auth", data);
 // REGISTRATION
-interface IsEmailAlreadyRegistered {
+export interface IsValueAlreadyRegistered {
   success: boolean;
   message: string;
 }
+
 export const isEmailAlreadyRegisteredAPI = (data: { email: string }) =>
-  API.post<IsEmailAlreadyRegistered>("/api/checkEmail", data);
+  API.post<IsValueAlreadyRegistered>("/api/checkEmail", data);
+
+export const isPhoneNumberAlreadyRegisteredAPI = (data: { phone: string }) =>
+  API.post<IsValueAlreadyRegistered>("/api/checkPhone", data);
+
+export const isTgTokenAlreadyRegisteredAPI = (data: { token: string }) =>
+  API.post<IsValueAlreadyRegistered>("/api/checkTokenTG", data);

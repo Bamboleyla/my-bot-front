@@ -13,7 +13,7 @@ export interface IRegistrationState {
     password: { value: string; error: boolean; errorText: string };
     repeatPassword: { value: string; error: boolean; errorText: string };
   };
-  isLoading: boolean;
+  isLoading: string[];
   activeStep: number;
 }
 
@@ -30,7 +30,7 @@ const initialState: IRegistrationState = {
     password: { value: "", error: false, errorText: "" },
     repeatPassword: { value: "", error: false, errorText: "" },
   },
-  isLoading: false,
+  isLoading: [],
   activeStep: 0,
 };
 
@@ -118,11 +118,15 @@ export const registrationFormSlice = createSlice({
       state.data.repeatPassword.error = action.payload.error;
       state.data.repeatPassword.errorText = action.payload.text;
     },
-    setLoading(state, action: PayloadAction<{ value: boolean }>) {
-      state.isLoading = action.payload.value;
+    addLoadingProcess(state, action: PayloadAction<{ value: string }>) {
+      state.isLoading = [...state.isLoading, action.payload.value];
+    },
+    deleteLoadingProcess(state, action: PayloadAction<{ value: string }>) {
+      state.isLoading = state.isLoading.filter(
+        (process) => process !== action.payload.value
+      );
     },
     setActiveStep(state, action: PayloadAction<{ value: number }>) {
-      console.log(action.payload.value);
       state.activeStep = action.payload.value;
     },
   },

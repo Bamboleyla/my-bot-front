@@ -1,6 +1,5 @@
 import { Stack } from "@mui/system";
 import { useMemo } from "react";
-import { v4 as uuidv4 } from "uuid";
 import { useAppDispatch, useAppSelector } from "../../../../hooks/redux";
 import { registrationFormSlice } from "../../../../store/reducers/RegistrationFormSlice";
 import { Field } from "./Field/Field";
@@ -10,6 +9,7 @@ import {
   getEmailAccordingToTheTemplate,
   getPasswordAccordingToTheTemplate,
 } from "./fields.utils";
+import { FieldsSkeleton } from "./FieldsSkeleton";
 
 export const Fields = () => {
   const dispatch = useAppDispatch();
@@ -27,7 +27,9 @@ export const Fields = () => {
     setRepeatPassword,
   } = registrationFormSlice.actions;
 
-  const { activeStep } = useAppSelector((state) => state.registrationForm);
+  const { activeStep, isLoading } = useAppSelector(
+    (state) => state.registrationForm
+  );
 
   const textFieldList = [
     [
@@ -108,15 +110,18 @@ export const Fields = () => {
     ],
     [],
   ];
+
+  const fields = useMemo(
+    () =>
+      textFieldList[activeStep].map((field, index) => (
+        <Field {...field} key={index} />
+      )),
+    [activeStep]
+  );
+
   return (
     <Stack spacing={2}>
-      {useMemo(
-        () =>
-          textFieldList[activeStep].map((field) => (
-            <Field {...field} key={uuidv4()} />
-          )),
-        [activeStep]
-      )}
+      {isLoading.length === 0 ? fields : <FieldsSkeleton />}
     </Stack>
   );
 };

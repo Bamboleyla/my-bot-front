@@ -1,22 +1,70 @@
-import { isEmailAlreadyRegisteredAPI } from "../../api/api";
+import {
+  isEmailAlreadyRegisteredAPI,
+  isPhoneNumberAlreadyRegisteredAPI,
+  isTgTokenAlreadyRegisteredAPI,
+} from "../../api/api";
 import { registrationFormSlice } from "../reducers/RegistrationFormSlice";
 import { AppDispatch } from "../store";
 
-export const isEmailAlreadyRegistered =
-  (email: string) => async (dispatch: AppDispatch) => {
-    try {
-      dispatch(registrationFormSlice.actions.setLoading({ value: true }));
-      const { data } = await isEmailAlreadyRegisteredAPI({ email });
+const { setEmail, setPhoneNumber, setTgToken } = registrationFormSlice.actions;
 
-      if (!data.success)
+type IsetEmail = typeof setEmail;
+type IsetPhoneNumber = typeof setPhoneNumber;
+type IsetTgToken = typeof setTgToken;
+
+export const IsValueAlreadyRegistered =
+  (value: string, process: string) => async (dispatch: AppDispatch) => {
+    try {
+      dispatch(
+        registrationFormSlice.actions.addLoadingProcess({
+          value: process,
+        })
+      );
+
+      const registeringResponse = (
+        data: { message: string },
+        action: IsetEmail | IsetPhoneNumber | IsetTgToken
+      ) =>
         dispatch(
-          registrationFormSlice.actions.setEmail({
-            value: email,
+          action({
+            value,
             error: true,
             text: data.message,
           })
         );
-      dispatch(registrationFormSlice.actions.setLoading({ value: false }));
+
+      switch (process) {
+        case "isEmailAlreadyRegistered":
+          const responseEmail = await isEmailAlreadyRegisteredAPI({
+            email: value,
+          });
+          !responseEmail.data.success &&
+            registeringResponse(responseEmail.data, setEmail);
+          break;
+        case "isPhoneNumberAlreadyRegistered":
+          const responsePhone = await isPhoneNumberAlreadyRegisteredAPI({
+            phone: value,
+          });
+          !responsePhone.data.success &&
+            registeringResponse(responsePhone.data, setPhoneNumber);
+          break;
+        case "isTokenTgAlreadyRegistered":
+          const responseToken = await isTgTokenAlreadyRegisteredAPI({
+            token: value,
+          });
+          !responseToken.data.success &&
+            registeringResponse(responseToken.data, setTgToken);
+          break;
+        default:
+          console.error(`Для process: ${process} сценарий неопределен`);
+          break;
+      }
+
+      dispatch(
+        registrationFormSlice.actions.deleteLoadingProcess({
+          value: process,
+        })
+      );
     } catch (error: any) {
       console.error(error);
     }

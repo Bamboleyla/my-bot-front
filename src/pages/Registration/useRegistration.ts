@@ -1,6 +1,7 @@
-import { isEmailAlreadyRegistered } from "./../../store/action_creators/registrationAC";
+import { IsValueAlreadyRegistered } from "./../../store/action_creators/registrationAC";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { registrationFormSlice } from "../../store/reducers/RegistrationFormSlice";
+import { useEffect } from "react";
 
 export const useRegistration = () => {
   const dispatch = useAppDispatch();
@@ -14,11 +15,36 @@ export const useRegistration = () => {
     setTgToken,
     setPassword,
     setRepeatPassword,
+    setActiveStep,
   } = registrationFormSlice.actions;
 
   const formValues = useAppSelector((state) => state.registrationForm);
 
-  const isThereErrorInTheTextField = (step: number): boolean => {
+  useEffect(() => {
+    switch (formValues.activeStep) {
+      case 1:
+        if (
+          formValues.isLoading.length === 0 &&
+          !formValues.data.phoneNumber.error &&
+          !formValues.data.email.error
+        )
+          dispatch(setActiveStep({ value: formValues.activeStep + 1 }));
+        break;
+      case 2:
+        if (formValues.isLoading.length === 0 && !formValues.data.tgToken.error)
+          dispatch(setActiveStep({ value: formValues.activeStep + 1 }));
+        break;
+
+      default:
+        if (formValues.activeStep > 3)
+          console.error(
+            `Для значения activeStep: ${formValues.activeStep} не задан сценарий!`
+          );
+        break;
+    }
+  }, [formValues.isLoading]);
+
+  const isThereErrorInTheTextField = (step: number) => {
     const formatsResponse = (
       action: any,
       value: string = "",
@@ -42,20 +68,16 @@ export const useRegistration = () => {
           formValues.data.middleName.error ||
           formValues.data.lastName.error
         )
-          return true;
+          isThereError = true;
         if (formValues.data.firstName.value === "")
           formatsResponse(setFirstName);
         if (formValues.data.middleName.value === "")
           formatsResponse(setMiddleName);
         if (formValues.data.lastName.value === "") formatsResponse(setLastName);
-        return isThereError;
+        !isThereError &&
+          dispatch(setActiveStep({ value: formValues.activeStep + 1 }));
+        break;
       case 1:
-        if (
-          formValues.data.phoneNumber.error ||
-          formValues.data.email.error ||
-          formValues.data.city.error
-        )
-          return true;
         if (formValues.data.phoneNumber.value === "+7")
           formatsResponse(setPhoneNumber, "+7", "Укажите свой номер телефона");
         if (formValues.data.phoneNumber.value.length < 16)
@@ -66,11 +88,23 @@ export const useRegistration = () => {
           );
         if (formValues.data.email.value === "") formatsResponse(setEmail);
         if (formValues.data.city.value === "") formatsResponse(setCity);
-        dispatch(isEmailAlreadyRegistered(formValues.data.email.value));
-        return isThereError;
+        if (!isThereError) {
+          dispatch(
+            IsValueAlreadyRegistered(
+              formValues.data.email.value,
+              "isEmailAlreadyRegistered"
+            )
+          );
+          dispatch(
+            IsValueAlreadyRegistered(
+              formValues.data.phoneNumber.value,
+              "isPhoneNumberAlreadyRegistered"
+            )
+          );
+        }
+        break;
       case 2:
         if (formValues.data.tgToken.value === "") {
-          isThereError = true;
           dispatch(
             setTgToken({
               value: "",
@@ -78,8 +112,14 @@ export const useRegistration = () => {
               text: "Поле не может быть пустым",
             })
           );
-        }
-        return isThereError;
+        } else
+          dispatch(
+            IsValueAlreadyRegistered(
+              formValues.data.tgToken.value,
+              "isTokenTgAlreadyRegistered"
+            )
+          );
+        break;
       case 3:
         if (formValues.data.password.value === "") formatsResponse(setPassword);
         if (formValues.data.repeatPassword.value === "")
@@ -117,10 +157,11 @@ export const useRegistration = () => {
             formValues.data.password.value,
             "Пароль должен содержать хотя бы одну цифру"
           );
-        return isThereError;
+        !isThereError &&
+          dispatch(setActiveStep({ value: formValues.activeStep + 1 }));
+        break;
       default:
         console.error(`Не найдено совпадений для параметра ${step}`);
-        return false;
     }
   };
 

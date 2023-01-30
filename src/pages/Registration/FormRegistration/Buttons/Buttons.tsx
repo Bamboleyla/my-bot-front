@@ -8,9 +8,13 @@ import { registrationFormSlice } from "../../../../store/reducers/RegistrationFo
 
 export const Buttons = () => {
   const { isThereErrorInTheTextField } = useRegistration();
-  const { activeStep } = useAppSelector((state) => state.registrationForm);
+  const { activeStep, isLoading } = useAppSelector(
+    (state) => state.registrationForm
+  );
   const { setActiveStep } = registrationFormSlice.actions;
   const dispatch = useAppDispatch();
+
+  const getLoadingStatus = () => isLoading.length !== 0;
 
   return (
     <div className={styles.buttons}>
@@ -22,6 +26,7 @@ export const Buttons = () => {
           <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
             <Box sx={{ flex: "1 1 auto" }} />
             <Button
+              disabled={getLoadingStatus()}
               onClick={() => dispatch(setActiveStep({ value: activeStep - 1 }))}
             >
               Назад
@@ -33,7 +38,7 @@ export const Buttons = () => {
           <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
             <Button
               color="inherit"
-              disabled={activeStep === 0}
+              disabled={activeStep === 0 || getLoadingStatus()}
               onClick={() => dispatch(setActiveStep({ value: activeStep - 1 }))}
               sx={{ mr: 1 }}
             >
@@ -41,15 +46,8 @@ export const Buttons = () => {
             </Button>
             <Box sx={{ flex: "1 1 auto" }} />
             <Button
-              onClick={() =>
-                dispatch(
-                  setActiveStep({
-                    value: isThereErrorInTheTextField(activeStep)
-                      ? activeStep
-                      : activeStep + 1,
-                  })
-                )
-              }
+              disabled={getLoadingStatus()}
+              onClick={() => isThereErrorInTheTextField(activeStep)}
             >
               {activeStep === steps.length - 1 ? "Отправить данные" : "Вперёд"}
             </Button>

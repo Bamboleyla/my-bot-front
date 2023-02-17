@@ -8,7 +8,7 @@
 
 # testing
 /coverage
-req.rest
+*.rest
 
 # production
 /build

@@ -1,10 +1,6 @@
-import {
-  isEmailAlreadyRegisteredAPI,
-  isPhoneNumberAlreadyRegisteredAPI,
-  isTgTokenAlreadyRegisteredAPI,
-} from "../../api/api";
 import { registrationFormSlice } from "../reducers/RegistrationFormSlice";
 import { AppDispatch } from "../store";
+import { Api } from "../../shared/api/index";
 
 const { setEmail, setPhoneNumber, setTgToken } = registrationFormSlice.actions;
 
@@ -35,23 +31,27 @@ export const IsValueAlreadyRegistered =
 
       switch (process) {
         case "isEmailAlreadyRegistered":
-          const responseEmail = await isEmailAlreadyRegisteredAPI({
-            email: value,
-          });
+          const responseEmail = await Api.registration.isEmailAlreadyRegistered(
+            {
+              email: value,
+            }
+          );
           !responseEmail.data.success &&
             registeringResponse(responseEmail.data, setEmail);
           break;
         case "isPhoneNumberAlreadyRegistered":
-          const responsePhone = await isPhoneNumberAlreadyRegisteredAPI({
-            phone: value,
-          });
+          const responsePhone =
+            await Api.registration.isPhoneNumberAlreadyRegistered({
+              phone: value,
+            });
           !responsePhone.data.success &&
             registeringResponse(responsePhone.data, setPhoneNumber);
           break;
         case "isTokenTgAlreadyRegistered":
-          const responseToken = await isTgTokenAlreadyRegisteredAPI({
-            token: value,
-          });
+          const responseToken =
+            await Api.registration.isTgTokenAlreadyRegistered({
+              token: value,
+            });
           !responseToken.data.success &&
             registeringResponse(responseToken.data, setTgToken);
           break;

@@ -1,10 +1,8 @@
 import { userSlice } from "./reducers/UserSlice";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import todayDateReducer from "./reducers/TodayDateSlice";
 import { registrationFormSlice } from "./reducers/RegistrationFormSlice";
 
 const rootReducer = combineReducers({
-  todayDateReducer,
   userAuth: userSlice.reducer,
   registrationForm: registrationFormSlice.reducer,
 });

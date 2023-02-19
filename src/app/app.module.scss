@@ -1,11 +1,4 @@
-@import "./styles/colors.module.scss";
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-}
+@import "./index.scss";
 
 .app_light_mode,
 .app_dark_mode {
@@ -21,6 +14,7 @@
   margin: 0 auto;
   padding: 0 15px;
 }
+
 .body_dark_mode,
 .app_dark_mode {
   background-color: $bg_dark-mode;

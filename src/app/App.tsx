@@ -2,14 +2,10 @@
 import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import styles from "./app.module.scss";
-import { ProductList } from "./components/ProductList/ProductList";
-import { Form } from "./components/Forms/Form";
-import { useTelegram } from "./hooks/useTelegram";
-import { useAppDispatch } from "./hooks/redux";
-import { Office } from "./pages/Office/Office";
-import { Authorization } from "./pages/Authorization/Authorization";
-import { Registration } from "./pages/Registration/Registration";
-import { userSlice } from "./store/reducers/UserSlice";
+import { useAppDispatch } from "../hooks/redux";
+import { Authorization } from "../pages/Authorization/Authorization";
+import { Registration } from "../pages/Registration/Registration";
+import { userSlice } from "../store/reducers/UserSlice";
 
 export const App = () => {
   const dispatch = useAppDispatch();
@@ -21,10 +17,6 @@ export const App = () => {
   useEffect(() => {
     dispatch(setDarkBrowserMode({ value: darkModePreference.matches }));
   }, []);
-
-  const { tg } = useTelegram();
-  //Метод который подсказывает Telegram, что наше приложение полностью инициализировалось
-  useEffect(() => tg.ready(), []);
 
   return (
     <div
@@ -38,11 +30,9 @@ export const App = () => {
         }
       >
         <Routes>
-          <Route index element={<ProductList />} />
-          <Route path={"form"} element={<Form />} />
+          <Route index element={<Authorization />} />
           <Route path={"auth"} element={<Authorization />} />
           <Route path={"registration"} element={<Registration />} />
-          <Route path={"office/:user_id"} element={<Office />} />
         </Routes>
       </div>
     </div>

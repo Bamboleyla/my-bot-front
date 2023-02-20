@@ -9,10 +9,16 @@ import {
   getEmailAccordingToTheTemplate,
   getPasswordAccordingToTheTemplate,
 } from "./fields.utils";
-import { FieldsSkeleton } from "./FieldsSkeleton";
+import { FieldsSkeleton } from "../../../../shared/ui/FieldsSkeleton";
 
 export const Fields = () => {
   const dispatch = useAppDispatch();
+
+  const config = {
+    width: 356,
+    height: 56,
+    repeat: 3,
+  };
 
   const {
     setLastName,
@@ -116,12 +122,13 @@ export const Fields = () => {
       textFieldList[activeStep].map((field, index) => (
         <Field {...field} key={index} />
       )),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [activeStep]
   );
 
   return (
     <Stack spacing={2}>
-      {isLoading.length === 0 ? fields : <FieldsSkeleton />}
+      {isLoading.length === 0 ? fields : <FieldsSkeleton config={config} />}
     </Stack>
   );
 };

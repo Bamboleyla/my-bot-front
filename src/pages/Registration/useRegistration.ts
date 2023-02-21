@@ -1,6 +1,6 @@
-import { IsValueAlreadyRegistered } from "./../../store/action_creators/registrationAC";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { registrationFormSlice } from "../../store/reducers/RegistrationFormSlice";
+import { IsValueAlreadyRegistered } from "../../entities/registration/actions";
+import { useAppDispatch, useAppSelector } from "../../app/redux";
+import { registrationFormSlice } from "../../entities/registration";
 import { useEffect } from "react";
 
 export const useRegistration = () => {

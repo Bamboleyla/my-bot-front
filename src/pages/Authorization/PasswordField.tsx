@@ -8,7 +8,7 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { State } from "./Authorization";
 import { Dispatch, SetStateAction } from "react";
 import { ErrorAuth } from "./ErrorAuth";
-import { useAuthorization } from "../../hooks/useAuthorization";
+import { useAuthorization } from "./useAuthorization";
 
 type Props = {
   values: State;

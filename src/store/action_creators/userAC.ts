@@ -1,4 +1,4 @@
-import { AppDispatch } from "./../store";
+import { AppDispatch } from "../../entities/store";
 // import { authUserAPI } from "../../shared/api/api";
 import { userSlice } from "../reducers/UserSlice";
 

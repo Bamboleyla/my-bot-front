@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { App } from "./app/index";
-import { setupStore } from "./store/store";
+import { setupStore } from "./entities/store";
 
 const store = setupStore();
 

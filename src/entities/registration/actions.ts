@@ -1,4 +1,4 @@
-import { registrationFormSlice } from "../reducers/RegistrationFormSlice";
+import { registrationFormSlice } from ".";
 import { AppDispatch } from "../store";
 import { Api } from "../../shared/api/index";
 

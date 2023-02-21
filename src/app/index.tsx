@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import styles from "./app.module.scss";
 import { useEffect } from "react";
-import { useAppDispatch } from "../hooks/redux";
+import { useAppDispatch } from "./redux";
 import { userSlice } from "../store/reducers/UserSlice";
 import { Routing } from "../pages";
 

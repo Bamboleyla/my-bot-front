@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import { State } from "../pages/Authorization/Authorization";
+import { State } from "./Authorization";
 
 type Props = {
   values: State;

@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import { Authorization } from "./Authorization/Authorization";
-import { Registration } from "./Registration/Registration";
+import { Registration } from "./Registration";
 
 export const Routing = () => {
   return (

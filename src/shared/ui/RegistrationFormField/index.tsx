@@ -1,8 +1,8 @@
 import TextField from "@mui/material/TextField";
 import { v4 as uuidv4 } from "uuid";
-import { useAppSelector } from "../../../../../hooks/redux";
-import { IRegistrationState } from "../../../../../store/reducers/RegistrationFormSlice";
-import { PasswordField } from "../../../../../widgets/PasswordField";
+import { useAppSelector } from "../../../app/redux";
+import { IRegistrationState } from "../../../entities/registration/models";
+import { PasswordField } from "../PasswordField";
 
 interface Props {
   disabled?: boolean | undefined;
@@ -11,7 +11,12 @@ interface Props {
   setValue: any; //TODO
 }
 
-export const Field = ({ disabled, label, valueKey, setValue }: Props) => {
+export const RegistrationFormField = ({
+  disabled,
+  label,
+  valueKey,
+  setValue,
+}: Props) => {
   const formValues: IRegistrationState = useAppSelector(
     (state) => state.registrationForm
   );

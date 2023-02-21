@@ -5,8 +5,8 @@ import Button from "@mui/material/Button";
 import Logo from "./bots.jpg";
 import { PasswordField } from "./PasswordField";
 import { LoginField } from "./LoginField";
-import { useAuthorization } from "../../hooks/useAuthorization";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import { useAuthorization } from "./useAuthorization";
+import { useAppDispatch, useAppSelector } from "../../app/redux";
 import { userAC } from "../../store/action_creators/userAC";
 import { useNavigate } from "react-router-dom";
 

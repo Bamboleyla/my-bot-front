@@ -1,16 +1,16 @@
 import { Stack } from "@mui/system";
 import { useMemo } from "react";
-import { useAppSelector } from "../../app/redux";
-import { RegistrationFormField } from "../../shared/ui/RegistrationFormField";
-import { FieldsSkeleton } from "../../shared/ui/FieldsSkeleton";
-import { useFields } from "./hooks/useFields";
+import { useAppSelector } from "../../../../app/redux";
+import { RegistrationFormField } from "../../../../shared/ui/RegistrationFormField";
+import { FieldsSkeleton } from "../../../../shared/ui/FieldsSkeleton";
+import { useFields } from "./data";
 
 export const Fields = () => {
   const { activeStep, isLoading } = useAppSelector(
     (state) => state.registrationForm
   );
 
-  const getTextField = useFields();
+  const getFields = useFields();
 
   const config = {
     width: 356,
@@ -20,7 +20,7 @@ export const Fields = () => {
 
   const fields = useMemo(
     () =>
-      getTextField()[activeStep].map((field, index) => (
+      getFields()[activeStep].map((field, index) => (
         <RegistrationFormField {...field} key={index} />
       )),
     // eslint-disable-next-line react-hooks/exhaustive-deps

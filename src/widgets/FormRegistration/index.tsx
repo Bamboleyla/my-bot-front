@@ -1,5 +1,5 @@
 import { Box } from "@mui/system";
-import { Fields } from "./Fields";
+import { Fields } from "./components/fields";
 import { Buttons } from "../../features/RegistrationFormButtoms";
 import { memo } from "react";
 

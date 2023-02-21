@@ -1,11 +1,11 @@
-import { useAppDispatch } from "../../../app/redux";
-import { registrationFormSlice } from "../../../entities/registration";
+import { useAppDispatch } from "../../../../app/redux";
+import { registrationFormSlice } from "../../../../entities/registration";
 import {
   getCyrillicStringAccordingToTheTemplate,
   getPhoneNumberAccordingToTheTemplate,
   getEmailAccordingToTheTemplate,
   getPasswordAccordingToTheTemplate,
-} from "../utils/fields.utils";
+} from "./fields.utils";
 
 export const useFields = () => {
   const dispatch = useAppDispatch();

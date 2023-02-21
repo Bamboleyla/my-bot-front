@@ -2,7 +2,7 @@
 import styles from "./app.module.scss";
 import { useEffect } from "react";
 import { useAppDispatch } from "./redux";
-import { userSlice } from "../store/reducers/UserSlice";
+import { userSlice } from "../entities/user";
 import { Routing } from "../pages";
 
 export const App = () => {

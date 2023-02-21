@@ -1,24 +1,17 @@
-import * as React from "react";
-import styles from "./authorization.module.scss";
+import styles from "./styles.module.scss";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
-import Logo from "./bots.jpg";
-import { PasswordField } from "./PasswordField";
-import { LoginField } from "./LoginField";
-import { useAuthorization } from "./useAuthorization";
+import Logo from "./public/bots.jpg";
+import { PasswordField } from "./components/PasswordField";
+import { LoginField } from "./components/LoginField";
 import { useAppDispatch, useAppSelector } from "../../app/redux";
-import { userAC } from "../../store/action_creators/userAC";
+import { userAC } from "../../entities/user/actions";
 import { useNavigate } from "react-router-dom";
-
-export interface State {
-  login: string;
-  password: string;
-  showPassword: boolean;
-  errorsValidation: { login: string[]; password: string[] };
-}
+import { IAuth } from "./models";
+import { useEffect, useState } from "react";
 
 export const Authorization = () => {
-  const [values, setValues] = React.useState<State>({
+  const [values, setValues] = useState<IAuth>({
     login: "",
     password: "",
     showPassword: false,
@@ -28,9 +21,17 @@ export const Authorization = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const { validationFields } = useAuthorization({ values, setValues });
-
   const { id } = useAppSelector((state) => state.userAuth);
+
+  const validationFields = (field: "login" | "password"): string[] => {
+    const isFieldEmpty = (text: string): boolean => text === "";
+
+    const validationResults = [];
+    if (isFieldEmpty(values[field])) {
+      validationResults.push("Поле не может быть пустым");
+    }
+    return validationResults;
+  };
 
   const validationForm = () => {
     const resultValidationFieldLogin = validationFields("login");
@@ -52,7 +53,7 @@ export const Authorization = () => {
     }
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (id > 0) {
       navigate(`/office/${id}`, { replace: true });
     }

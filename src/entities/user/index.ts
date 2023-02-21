@@ -1,18 +1,5 @@
+import { initialState } from "./initialState";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-interface UserState {
-  id: number;
-  name: string;
-  isLoading: boolean;
-  isDarkBrowserModeEnabled: boolean;
-}
-
-const initialState: UserState = {
-  id: 0,
-  name: "",
-  isLoading: true,
-  isDarkBrowserModeEnabled: false,
-};
 
 export const userSlice = createSlice({
   name: "user",

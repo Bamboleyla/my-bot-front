@@ -1,4 +1,4 @@
-import { userSlice } from "../store/reducers/UserSlice";
+import { userSlice } from "./user";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { registrationFormSlice } from "./registration";
 

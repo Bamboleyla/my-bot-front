@@ -1,7 +1,7 @@
 import ReportGmailerrorredOutlinedIcon from "@mui/icons-material/ReportGmailerrorredOutlined";
-import styles from "./authorization.module.scss";
+import styles from "./styles.module.scss";
 
-export const ErrorAuth = ({
+export const ErrorMessage = ({
   text,
   visible,
 }: {
@@ -11,7 +11,7 @@ export const ErrorAuth = ({
   return (
     <div
       className={styles.error}
-      style={visible ? { visibility: "visible" } : { visibility: "hidden" }}
+      style={{ visibility: visible ? "visible" : "hidden" }}
     >
       <div className={styles.error_icon}>
         <ReportGmailerrorredOutlinedIcon fontSize="small" color="error" />

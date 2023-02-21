@@ -1,17 +1,14 @@
 import { FilledInput, FormControl, InputLabel } from "@mui/material";
 import { Dispatch, SetStateAction } from "react";
-import { useAuthorization } from "./useAuthorization";
-import { State } from "./Authorization";
-import { ErrorAuth } from "./ErrorAuth";
+import { ErrorMessage } from "../ErrorMessage";
+import { IAuth } from "../../models";
 
-type Props = {
-  values: State;
-  setValues: Dispatch<SetStateAction<State>>;
-};
+interface Props {
+  values: IAuth;
+  setValues: Dispatch<SetStateAction<IAuth>>;
+}
 
 export const LoginField = ({ values, setValues }: Props) => {
-  const { handleChange } = useAuthorization({ values, setValues });
-
   const error = values.errorsValidation.login.length > 0;
 
   return (
@@ -22,10 +19,12 @@ export const LoginField = ({ values, setValues }: Props) => {
         id="filled-login"
         type={"text"}
         size="small"
-        onChange={handleChange("login")}
+        onChange={(event) =>
+          setValues({ ...values, login: event.target.value })
+        }
         value={values.login}
       />
-      <ErrorAuth text={values.errorsValidation.login} visible={error} />
+      <ErrorMessage text={values.errorsValidation.login} visible={error} />
     </FormControl>
   );
 };

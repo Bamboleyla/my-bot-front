@@ -1,6 +1,6 @@
-import { AppDispatch } from "../../entities/store";
+import { AppDispatch } from "../store";
 // import { authUserAPI } from "../../shared/api/api";
-import { userSlice } from "../reducers/UserSlice";
+import { userSlice } from ".";
 
 export const userAC =
   (login: string, password: string) => async (dispatch: AppDispatch) => {

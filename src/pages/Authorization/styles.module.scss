@@ -17,16 +17,3 @@
     }
   }
 }
-.error {
-  color: $color-red_2f;
-  font-size: 0.75rem;
-  margin-top: 4px !important;
-  display: flex;
-  align-items: center;
-  .error_icon {
-    height: 20px;
-  }
-  .error_text {
-    margin-left: 4px;
-  }
-}

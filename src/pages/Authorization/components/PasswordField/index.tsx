@@ -5,20 +5,16 @@ import FilledInput from "@mui/material/FilledInput";
 import IconButton from "@mui/material/IconButton";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { State } from "./Authorization";
 import { Dispatch, SetStateAction } from "react";
-import { ErrorAuth } from "./ErrorAuth";
-import { useAuthorization } from "./useAuthorization";
+import { ErrorMessage } from "../ErrorMessage";
+import { IAuth } from "../../models";
 
-type Props = {
-  values: State;
-  setValues: Dispatch<SetStateAction<State>>;
-};
+interface Props {
+  values: IAuth;
+  setValues: Dispatch<SetStateAction<IAuth>>;
+}
 
 export const PasswordField = ({ values, setValues }: Props) => {
-  const { handleChange, handleClickShowPassword, handleMouseDownPassword } =
-    useAuthorization({ values, setValues });
-
   const error = values.errorsValidation.password.length > 0;
 
   return (
@@ -30,13 +26,20 @@ export const PasswordField = ({ values, setValues }: Props) => {
         type={values.showPassword ? "text" : "password"}
         size="small"
         value={values.password}
-        onChange={handleChange("password")}
+        onChange={(event) =>
+          setValues({ ...values, password: event.target.value })
+        }
         endAdornment={
           <InputAdornment position="end">
             <IconButton
               aria-label="toggle password visibility"
-              onClick={handleClickShowPassword}
-              onMouseDown={handleMouseDownPassword}
+              onClick={() =>
+                setValues({
+                  ...values,
+                  showPassword: !values.showPassword,
+                })
+              }
+              onMouseDown={(event) => event.preventDefault()}
               edge="end"
             >
               {values.showPassword ? <VisibilityOff /> : <Visibility />}
@@ -44,7 +47,7 @@ export const PasswordField = ({ values, setValues }: Props) => {
           </InputAdornment>
         }
       />
-      <ErrorAuth text={values.errorsValidation.password} visible={error} />
+      <ErrorMessage text={values.errorsValidation.password} visible={error} />
     </FormControl>
   );
 };

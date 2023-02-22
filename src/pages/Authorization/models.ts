@@ -1,6 +1,5 @@
 export interface IAuth {
-  login: string;
-  password: string;
-  showPassword: boolean;
-  errorsValidation: { login: string[]; password: string[] };
+  login: { value: string; error: boolean; errorText: string };
+  password: { value: string; error: boolean; errorText: string };
+  isLoading: string[];
 }

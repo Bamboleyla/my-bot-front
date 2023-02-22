@@ -1,5 +1,5 @@
 import styles from "./styles.module.scss";
-import { ProgressRegistration } from "../../shared/ui/ProgressRegistration";
+import { ProgressRegistration } from "./components/ProgressRegistration";
 import { useAppSelector } from "../../app/redux";
 import FormRegistration from "../../widgets/FormRegistration";
 

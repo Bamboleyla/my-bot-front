@@ -9,7 +9,7 @@ interface Props {
 }
 
 export const LoginField = ({ values, setValues }: Props) => {
-  const error = values.errorsValidation.login.length > 0;
+  const error = values.login.error;
 
   return (
     <FormControl variant="filled">
@@ -20,11 +20,14 @@ export const LoginField = ({ values, setValues }: Props) => {
         type={"text"}
         size="small"
         onChange={(event) =>
-          setValues({ ...values, login: event.target.value })
+          setValues({
+            ...values,
+            login: { ...values.login, value: event.target.value },
+          })
         }
-        value={values.login}
+        value={values.login.value}
       />
-      <ErrorMessage text={values.errorsValidation.login} visible={error} />
+      <ErrorMessage text={values.login.errorText} visible={error} />
     </FormControl>
   );
 };

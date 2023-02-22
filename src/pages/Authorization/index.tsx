@@ -4,54 +4,22 @@ import Button from "@mui/material/Button";
 import Logo from "./public/bots.jpg";
 import { PasswordField } from "./components/PasswordField";
 import { LoginField } from "./components/LoginField";
-import { useAppDispatch, useAppSelector } from "../../app/redux";
-import { userAC } from "../../entities/user/actions";
+import { useAppSelector } from "../../app/redux";
 import { useNavigate } from "react-router-dom";
 import { IAuth } from "./models";
 import { useEffect, useState } from "react";
+import { validationFields } from "../../features/auth";
 
 export const Authorization = () => {
-  const [values, setValues] = useState<IAuth>({
-    login: "",
-    password: "",
-    showPassword: false,
-    errorsValidation: { login: [], password: [] },
-  });
-
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-
   const { id } = useAppSelector((state) => state.userAuth);
 
-  const validationFields = (field: "login" | "password"): string[] => {
-    const isFieldEmpty = (text: string): boolean => text === "";
+  const [values, setValues] = useState<IAuth>({
+    login: { value: "", error: false, errorText: "" },
+    password: { value: "", error: false, errorText: "" },
+    isLoading: [],
+  });
 
-    const validationResults = [];
-    if (isFieldEmpty(values[field])) {
-      validationResults.push("Поле не может быть пустым");
-    }
-    return validationResults;
-  };
-
-  const validationForm = () => {
-    const resultValidationFieldLogin = validationFields("login");
-    const resultValidationFieldPassword = validationFields("password");
-
-    if (
-      resultValidationFieldLogin.length === 0 &&
-      resultValidationFieldPassword.length === 0
-    ) {
-      dispatch(userAC(values.login, values.password));
-    } else {
-      setValues({
-        ...values,
-        errorsValidation: {
-          login: resultValidationFieldLogin,
-          password: resultValidationFieldPassword,
-        },
-      });
-    }
-  };
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (id > 0) {
@@ -69,7 +37,10 @@ export const Authorization = () => {
         </Stack>
         <div className={styles.buttons}>
           <Stack spacing={2} direction="row">
-            <Button variant="contained" onClick={validationForm}>
+            <Button
+              variant="contained"
+              onClick={() => validationFields(values, setValues)}
+            >
               Вход
             </Button>
             <Button

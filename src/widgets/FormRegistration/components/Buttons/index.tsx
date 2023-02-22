@@ -2,9 +2,9 @@ import * as React from "react";
 import styles from "./styles.module.scss";
 import { Button, Box, Typography } from "@mui/material";
 import { useRegistration } from "./hook";
-import { useAppDispatch, useAppSelector } from "../../app/redux";
-import { steps } from "../../pages/Registration";
-import { registrationFormSlice } from "../../entities/registration";
+import { useAppDispatch, useAppSelector } from "../../../../app/redux";
+import { steps } from "../../../../pages/Registration";
+import { registrationFormSlice } from "../../../../entities/registration";
 
 export const Buttons = () => {
   const { isThereErrorInTheTextField } = useRegistration();

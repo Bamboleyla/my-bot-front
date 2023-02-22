@@ -5,7 +5,7 @@ export const ErrorMessage = ({
   text,
   visible,
 }: {
-  text: string[];
+  text: string;
   visible: boolean;
 }) => {
   return (
@@ -16,7 +16,7 @@ export const ErrorMessage = ({
       <div className={styles.error_icon}>
         <ReportGmailerrorredOutlinedIcon fontSize="small" color="error" />
       </div>
-      <div className={styles.error_text}>{text[0]}</div>
+      <div className={styles.error_text}>{text}</div>
     </div>
   );
 };

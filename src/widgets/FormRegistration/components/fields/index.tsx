@@ -1,8 +1,8 @@
 import { Stack } from "@mui/system";
 import { useMemo } from "react";
 import { useAppSelector } from "../../../../app/redux";
-import { RegistrationFormField } from "../../../../shared/ui/RegistrationFormField";
-import { FieldsSkeleton } from "../../../../shared/ui/FieldsSkeleton";
+import { Field } from "../Field";
+import { Skeleton } from "../Skeleton";
 import { useFields } from "./data";
 
 export const Fields = () => {
@@ -21,7 +21,7 @@ export const Fields = () => {
   const fields = useMemo(
     () =>
       getFields()[activeStep].map((field, index) => (
-        <RegistrationFormField {...field} key={index} />
+        <Field {...field} key={index} />
       )),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [activeStep]
@@ -29,7 +29,7 @@ export const Fields = () => {
 
   return (
     <Stack spacing={2}>
-      {isLoading.length === 0 ? fields : <FieldsSkeleton config={config} />}
+      {isLoading.length === 0 ? fields : <Skeleton config={config} />}
     </Stack>
   );
 };

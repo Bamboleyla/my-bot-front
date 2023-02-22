@@ -7,6 +7,7 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { Dispatch, SetStateAction } from "react";
 import { ErrorMessage } from "../ErrorMessage";
+import { useState } from "react";
 import { IAuth } from "../../models";
 
 interface Props {
@@ -15,39 +16,40 @@ interface Props {
 }
 
 export const PasswordField = ({ values, setValues }: Props) => {
-  const error = values.errorsValidation.password.length > 0;
+  const [visibleText, setVisibleText] = useState(false);
 
   return (
     <FormControl variant="filled">
       <InputLabel htmlFor="filled-adornment-password">Password</InputLabel>
       <FilledInput
-        error={values.errorsValidation.password.length > 0}
+        error={values.password.error}
         id="filled-adornment-password"
-        type={values.showPassword ? "text" : "password"}
+        type={visibleText ? "text" : "password"}
         size="small"
-        value={values.password}
+        value={values.password.value}
         onChange={(event) =>
-          setValues({ ...values, password: event.target.value })
+          setValues({
+            ...values,
+            password: { ...values.password, value: event.target.value },
+          })
         }
         endAdornment={
           <InputAdornment position="end">
             <IconButton
               aria-label="toggle password visibility"
-              onClick={() =>
-                setValues({
-                  ...values,
-                  showPassword: !values.showPassword,
-                })
-              }
+              onClick={() => setVisibleText(!visibleText)}
               onMouseDown={(event) => event.preventDefault()}
               edge="end"
             >
-              {values.showPassword ? <VisibilityOff /> : <Visibility />}
+              {visibleText ? <VisibilityOff /> : <Visibility />}
             </IconButton>
           </InputAdornment>
         }
       />
-      <ErrorMessage text={values.errorsValidation.password} visible={error} />
+      <ErrorMessage
+        text={values.password.errorText}
+        visible={values.password.error}
+      />
     </FormControl>
   );
 };

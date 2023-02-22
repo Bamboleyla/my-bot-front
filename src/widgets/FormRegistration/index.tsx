@@ -1,6 +1,6 @@
 import { Box } from "@mui/system";
-import { Fields } from "./components/fields";
-import { Buttons } from "../../features/RegistrationFormButtoms";
+import { Fields } from "./components/Fields";
+import { Buttons } from "./components/Buttons";
 import { memo } from "react";
 
 export default memo(() => (

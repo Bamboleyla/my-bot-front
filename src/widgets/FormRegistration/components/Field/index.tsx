@@ -2,7 +2,7 @@ import TextField from "@mui/material/TextField";
 import { v4 as uuidv4 } from "uuid";
 import { useAppSelector } from "../../../../app/redux";
 import { IRegistrationState } from "../../../../entities/registration/models";
-import { PasswordField } from "../PasswordField";
+import { PasswordField } from "../../../../shared/ui/PasswordField";
 
 interface Props {
   disabled?: boolean | undefined;

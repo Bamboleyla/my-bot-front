@@ -5,7 +5,7 @@ import {
   getPhoneNumberAccordingToTheTemplate,
   getEmailAccordingToTheTemplate,
   getPasswordAccordingToTheTemplate,
-} from "./fields.utils";
+} from "./utils";
 
 export const useFields = () => {
   const dispatch = useAppDispatch();

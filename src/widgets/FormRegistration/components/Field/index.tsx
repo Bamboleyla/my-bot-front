@@ -8,7 +8,7 @@ interface Props {
   disabled?: boolean | undefined;
   label: string;
   valueKey: string;
-  setValue: any; //TODO
+  setValue: Function;
 }
 
 export const Field = ({ disabled, label, valueKey, setValue }: Props) => {

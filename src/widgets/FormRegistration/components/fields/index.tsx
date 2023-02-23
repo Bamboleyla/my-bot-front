@@ -2,7 +2,7 @@ import { Stack } from "@mui/system";
 import { useMemo } from "react";
 import { useAppSelector } from "../../../../app/redux";
 import { Field } from "../Field";
-import { Skeleton } from "../Skeleton";
+import { FieldsSkeleton } from "../Skeleton";
 import { useFields } from "./data";
 
 export const Fields = () => {
@@ -11,12 +11,6 @@ export const Fields = () => {
   );
 
   const getFields = useFields();
-
-  const config = {
-    width: 356,
-    height: 56,
-    repeat: 3,
-  };
 
   const fields = useMemo(
     () =>
@@ -29,7 +23,7 @@ export const Fields = () => {
 
   return (
     <Stack spacing={2}>
-      {isLoading.length === 0 ? fields : <Skeleton config={config} />}
+      {isLoading.length === 0 ? fields : <FieldsSkeleton />}
     </Stack>
   );
 };

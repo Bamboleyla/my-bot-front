@@ -96,5 +96,13 @@ export const registrationFormSlice = createSlice({
     setActiveStep(state, action: PayloadAction<{ value: number }>) {
       state.activeStep = action.payload.value;
     },
+    setEmailCode(
+      state,
+      action: PayloadAction<{ value: string; error: boolean; text: string }>
+    ) {
+      state.data.emailCode.value = action.payload.value;
+      state.data.emailCode.error = action.payload.error;
+      state.data.emailCode.errorText = action.payload.text;
+    },
   },
 });

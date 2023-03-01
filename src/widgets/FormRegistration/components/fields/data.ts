@@ -21,6 +21,7 @@ export const useFields = () => {
     setTgToken,
     setPassword,
     setRepeatPassword,
+    setEmailCode,
   } = registrationFormSlice.actions;
 
   const getTextFieldList = () => {
@@ -105,7 +106,14 @@ export const useFields = () => {
             ),
         },
       ],
-      [],
+      [
+        {
+          label: "Введите код",
+          valueKey: "emailCode",
+          setValue: (value: string) =>
+            dispatch(setEmailCode({ value, error: false, text: "" })),
+        },
+      ],
     ];
   };
   return getTextFieldList;

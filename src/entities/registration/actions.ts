@@ -69,3 +69,32 @@ export const IsValueAlreadyRegistered =
       console.error(error);
     }
   };
+
+export const ChekEmailCode =
+  (value: string) => async (dispatch: AppDispatch) => {
+    try {
+      dispatch(
+        registrationFormSlice.actions.addLoadingProcess({
+          value: "ChekEmailCode",
+        })
+      );
+      console.log(`готов отправить value: ${value}`);
+
+      const { data } = await Api.registration.chekEmailCode({
+        code: value,
+      });
+      !data.success &&
+        registrationFormSlice.actions.setEmailCode({
+          value,
+          error: true,
+          text: data.message,
+        });
+      dispatch(
+        registrationFormSlice.actions.deleteLoadingProcess({
+          value: "ChekEmailCode",
+        })
+      );
+    } catch (error: any) {
+      console.error(error);
+    }
+  };

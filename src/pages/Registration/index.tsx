@@ -3,7 +3,7 @@ import { ProgressRegistration } from "./components/ProgressRegistration";
 import { useAppSelector } from "../../app/redux";
 import FormRegistration from "../../widgets/FormRegistration";
 
-export const steps = ["Шаг1", "Шаг2", "Шаг3", "Шаг4"];
+export const steps = ["Шаг1", "Шаг2", "Шаг3", "Шаг4", "Шаг5"];
 
 const Title = () => <div className={styles.title}>Регистрация</div>;
 

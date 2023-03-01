@@ -10,6 +10,7 @@ export interface IRegistrationState {
     tgToken: { value: string; error: boolean; errorText: string };
     password: { value: string; error: boolean; errorText: string };
     repeatPassword: { value: string; error: boolean; errorText: string };
+    emailCode: { value: string; error: boolean; errorText: string };
   };
   isLoading: string[];
   activeStep: number;

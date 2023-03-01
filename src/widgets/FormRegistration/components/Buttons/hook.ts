@@ -1,7 +1,12 @@
-import { IsValueAlreadyRegistered } from "../../../../entities/registration/actions";
+import {
+  ChekEmailCode,
+  IsValueAlreadyRegistered,
+} from "../../../../entities/registration/actions";
 import { useAppDispatch, useAppSelector } from "../../../../app/redux";
 import { registrationFormSlice } from "../../../../entities/registration";
 import { useEffect } from "react";
+import { registerNewUser } from "../../../../shared/api/registration/registration";
+import { notification } from "antd";
 
 export const useRegistration = () => {
   const dispatch = useAppDispatch();
@@ -16,6 +21,7 @@ export const useRegistration = () => {
     setPassword,
     setRepeatPassword,
     setActiveStep,
+    setEmailCode,
   } = registrationFormSlice.actions;
 
   const formValues = useAppSelector((state) => state.registrationForm);
@@ -34,7 +40,9 @@ export const useRegistration = () => {
         if (formValues.isLoading.length === 0 && !formValues.data.tgToken.error)
           dispatch(setActiveStep({ value: formValues.activeStep + 1 }));
         break;
-
+      case 4:
+        console.log("redirect main");
+        break;
       default:
         if (formValues.activeStep > 3)
           console.error(
@@ -42,6 +50,7 @@ export const useRegistration = () => {
           );
         break;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formValues.isLoading]);
 
   const isThereErrorInTheTextField = (step: number) => {
@@ -157,8 +166,50 @@ export const useRegistration = () => {
             formValues.data.password.value,
             "Пароль должен содержать хотя бы одну цифру"
           );
-        !isThereError &&
+        if (!isThereError)
           dispatch(setActiveStep({ value: formValues.activeStep + 1 }));
+        {
+          const {
+            firstName,
+            lastName,
+            middleName,
+            phoneNumber,
+            email,
+            country,
+            city,
+            tgToken,
+            password,
+          } = formValues.data;
+          registerNewUser({
+            firstName: firstName.value,
+            lastName: lastName.value,
+            middleName: middleName.value,
+            phoneNumber: phoneNumber.value.replace(/\s|[()]/g, ""),
+            email: email.value,
+            country: country.value,
+            city: city.value,
+            tgToken: tgToken.value,
+            password: password.value,
+          });
+        }
+
+        let message = "Новое Письмо!";
+        let description = `Вам на ваш почтовый ящик ${formValues.data.email.value} выслано письмо с кодом активации акаунта`;
+        notification.info({ message, description, placement: "topLeft" });
+        break;
+      case 4:
+        if (formValues.data.emailCode.value === "")
+          formatsResponse(setEmailCode);
+
+        if (formValues.data.emailCode.value.length !== 4)
+          formatsResponse(
+            setEmailCode,
+            formValues.data.emailCode.value,
+            "Код неверный"
+          );
+
+        !isThereError &&
+          dispatch(ChekEmailCode(formValues.data.emailCode.value));
         break;
       default:
         console.error(`Не найдено совпадений для параметра ${step}`);

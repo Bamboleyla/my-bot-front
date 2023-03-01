@@ -13,7 +13,7 @@ export const LoginField = ({ values, setValues }: Props) => {
     <TextField
       error={values.login.error}
       id={uuidv4()}
-      label="Логин"
+      label="email"
       variant="filled"
       onChange={(event) =>
         setValues({

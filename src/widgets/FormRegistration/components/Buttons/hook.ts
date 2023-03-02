@@ -7,9 +7,12 @@ import { registrationFormSlice } from "../../../../entities/registration";
 import { useEffect } from "react";
 import { registerNewUser } from "../../../../shared/api/registration/registration";
 import { notification } from "antd";
+import { useNavigate } from "react-router-dom";
 
 export const useRegistration = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
   const {
     setLastName,
     setFirstName,
@@ -198,6 +201,7 @@ export const useRegistration = () => {
         notification.info({ message, description, placement: "topLeft" });
         break;
       case 4:
+        // Код для активации акаунта состоит из строки 4 цифры
         if (formValues.data.emailCode.value === "")
           formatsResponse(setEmailCode);
 
@@ -208,8 +212,15 @@ export const useRegistration = () => {
             "Код неверный"
           );
 
-        !isThereError &&
-          dispatch(ChekEmailCode(formValues.data.emailCode.value));
+        if (!isThereError) {
+          dispatch(
+            ChekEmailCode(
+              formValues.data.email.value,
+              formValues.data.emailCode.value,
+              navigate
+            )
+          );
+        }
         break;
       default:
         console.error(`Не найдено совпадений для параметра ${step}`);

@@ -13,5 +13,5 @@ export const isTgTokenAlreadyRegistered = (data: { token: string }) =>
 export const registerNewUser = (data: IUserDataReq) =>
   API.post<IUserDataRes>("/api/registration", data);
 
-export const chekEmailCode = (data: { code: string }) =>
+export const chekEmailCode = (data: { email: string; code: string }) =>
   API.post<IResponse>("/api/emailCode", data);

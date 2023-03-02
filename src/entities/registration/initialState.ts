@@ -15,5 +15,5 @@ export const initialState: IRegistrationState = {
     emailCode: { value: "", error: false, errorText: "" },
   },
   isLoading: [],
-  activeStep: 4,
+  activeStep: 0,
 };

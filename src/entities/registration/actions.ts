@@ -1,6 +1,7 @@
 import { registrationFormSlice } from ".";
 import { AppDispatch } from "../store";
 import { Api } from "../../shared/api/index";
+import { NavigateFunction } from "react-router-dom";
 
 const { setEmail, setPhoneNumber, setTgToken } = registrationFormSlice.actions;
 
@@ -71,24 +72,27 @@ export const IsValueAlreadyRegistered =
   };
 
 export const ChekEmailCode =
-  (value: string) => async (dispatch: AppDispatch) => {
+  (email: string, code: string, navigate: NavigateFunction) =>
+  async (dispatch: AppDispatch) => {
     try {
       dispatch(
         registrationFormSlice.actions.addLoadingProcess({
           value: "ChekEmailCode",
         })
       );
-      console.log(`готов отправить value: ${value}`);
-
       const { data } = await Api.registration.chekEmailCode({
-        code: value,
+        email,
+        code,
       });
-      !data.success &&
-        registrationFormSlice.actions.setEmailCode({
-          value,
-          error: true,
-          text: data.message,
-        });
+      if (!data.success)
+        dispatch(
+          registrationFormSlice.actions.setEmailCode({
+            value: code,
+            error: true,
+            text: data.message,
+          })
+        );
+      else navigate("/main");
       dispatch(
         registrationFormSlice.actions.deleteLoadingProcess({
           value: "ChekEmailCode",

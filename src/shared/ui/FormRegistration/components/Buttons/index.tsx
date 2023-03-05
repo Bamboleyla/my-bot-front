@@ -1,7 +1,7 @@
 import * as React from "react";
 import styles from "./styles.module.scss";
 import { Button, Box } from "@mui/material";
-import { useRegistration } from "../../../../features/registration/hook";
+import { useRegistration } from "../../../../../features/registration/hook";
 
 export const Buttons = () => {
   const { nextStep, getLoadingStatus, previousStep, getButtonTitle } =

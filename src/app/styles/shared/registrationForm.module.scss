@@ -1,0 +1,19 @@
+@import "../../index.scss";
+
+.form {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  align-items: center;
+  gap: 20px;
+  margin-top: -203px;
+  top: 35%;
+  .title {
+    height: 56px;
+    width: 400px;
+    text-align: center;
+    line-height: 56px;
+    background-color: $color-light_grey;
+    font-size: larger;
+  }
+}

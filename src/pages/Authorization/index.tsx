@@ -3,16 +3,13 @@ import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import Logo from "./public/bots.jpg";
 import { LoginField } from "./components/LoginField";
-import { useAppSelector } from "../../app/redux";
 import { useNavigate } from "react-router-dom";
 import { IAuth } from "./models";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { validationFields } from "../../features/auth";
 import { PasswordField } from "../../shared/ui/PasswordField";
 
 export const Authorization = () => {
-  const { id } = useAppSelector((state) => state.userAuth);
-
   const [values, setValues] = useState<IAuth>({
     login: { value: "", error: false, errorText: "" },
     password: { value: "", error: false, errorText: "" },
@@ -20,12 +17,6 @@ export const Authorization = () => {
   });
 
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (id > 0) {
-      navigate(`/office/${id}`, { replace: true });
-    }
-  }, [id, navigate]);
 
   const setValue = (value: string) =>
     setValues({ ...values, password: { ...values.password, value } });
@@ -54,11 +45,17 @@ export const Authorization = () => {
             </Button>
             <Button
               variant="contained"
-              onClick={() => navigate(`/registration`, { replace: true })}
+              onClick={() => navigate(`/registration`)}
             >
               Регистрация
             </Button>
           </Stack>
+          <div
+            className={styles.forget}
+            onClick={() => navigate("/forgetPassword")}
+          >
+            Забыли пароль?
+          </div>
         </div>
       </div>
     </div>

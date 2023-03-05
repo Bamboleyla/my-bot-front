@@ -1,21 +1,26 @@
 import styles from "./styles.module.scss";
-import { ProgressRegistration } from "./components/ProgressRegistration";
+import { Progress } from "../../shared/ui/Progress";
 import { useAppSelector } from "../../app/redux";
-import FormRegistration from "../../widgets/FormRegistration";
+import { IRegistrationState } from "../../entities/registration/models";
+import { FormRegistration } from "../../shared/ui/FormRegistration";
+import { useFields } from "./data";
 
 export const steps = ["Шаг1", "Шаг2", "Шаг3", "Шаг4", "Шаг5"];
 
 const Title = () => <div className={styles.title}>Регистрация</div>;
 
 export const Registration = () => {
-  const { activeStep } = useAppSelector((state) => state.registrationForm);
+  const formValues: IRegistrationState = useAppSelector(
+    (state) => state.registrationForm
+  );
+  const getFields = useFields();
 
   return (
-    <div className={styles.body}>
-      <ProgressRegistration steps={steps} activeStep={activeStep} />
+    <div className={styles.registration}>
+      <Progress steps={steps} activeStep={formValues.activeStep} />
       <div className={styles.form}>
-        {activeStep !== steps.length && <Title />}
-        <FormRegistration />
+        {formValues.activeStep !== steps.length && <Title />}
+        <FormRegistration formValues={formValues} config={getFields()} />
       </div>
     </div>
   );

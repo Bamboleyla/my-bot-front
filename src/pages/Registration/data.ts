@@ -1,11 +1,18 @@
-import { useAppDispatch } from "../../../../app/redux";
-import { registrationFormSlice } from "../../../../entities/registration";
+import { useAppDispatch } from "../../app/redux";
+import { registrationFormSlice } from "../../entities/registration";
 import {
   getCyrillicStringAccordingToTheTemplate,
   getPhoneNumberAccordingToTheTemplate,
   getEmailAccordingToTheTemplate,
   getPasswordAccordingToTheTemplate,
-} from "./utils";
+} from "../ForgetPassword/utils";
+
+export interface IgetFields {
+  label: string;
+  valueKey: string;
+  setValue: any;
+  disabled?: boolean;
+}
 
 export const useFields = () => {
   const dispatch = useAppDispatch();
@@ -24,7 +31,7 @@ export const useFields = () => {
     setEmailCode,
   } = registrationFormSlice.actions;
 
-  const getTextFieldList = () => {
+  const getFields = (): IgetFields[][] => {
     return [
       [
         {
@@ -116,5 +123,5 @@ export const useFields = () => {
       ],
     ];
   };
-  return getTextFieldList;
+  return getFields;
 };

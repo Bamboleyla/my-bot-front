@@ -1,7 +1,7 @@
 import { IgetFields } from "../../../../../pages/Registration/data";
-import { IformValues } from "../Field/models";
+import { IformValues } from "../../models";
 
-export interface IFildsList {
+export interface IFields {
   config: IgetFields[][];
   formValues: IformValues;
 }

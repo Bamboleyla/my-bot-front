@@ -1,10 +1,4 @@
-export interface IformValues {
-  data: {
-    [key: string]: any;
-  };
-  isLoading: string[];
-  activeStep: number;
-}
+import { IformValues } from "../../models";
 
 export interface IField {
   disabled?: boolean | undefined;

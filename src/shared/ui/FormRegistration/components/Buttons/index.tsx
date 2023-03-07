@@ -1,12 +1,14 @@
 import * as React from "react";
 import styles from "./styles.module.scss";
 import { Button, Box } from "@mui/material";
-import { useRegistration } from "../../../../../features/registration/hook";
+import { IuseRegistration } from "../../../../../features/registration";
 
-export const Buttons = () => {
-  const { nextStep, getLoadingStatus, previousStep, getButtonTitle } =
-    useRegistration();
-
+export const Buttons = ({
+  getLoadingStatus,
+  previousStep,
+  nextStep,
+  getButtonTitle,
+}: IuseRegistration) => {
   return (
     <div className={styles.buttons}>
       <React.Fragment>

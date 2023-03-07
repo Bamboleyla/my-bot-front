@@ -1,23 +1,33 @@
 import { Progress } from "../../shared/ui/Progress";
 import styles from "./styles.module.scss";
-import { useState } from "react";
+import { useFields } from "./data";
+import { useAppSelector } from "../../app/redux";
+import { IRegistrationState } from "../../entities/registration/models";
+import { useForgetPassword } from "../../features/forgetPassword";
 import { FormRegistration } from "../../shared/ui/FormRegistration";
-import { data } from "./data";
-import { IformValues } from "../../shared/ui/FormRegistration/components/Field/models";
 
 export const steps = ["Шаг1", "Шаг2", "Шаг3"];
 
 const Title = () => <div className={styles.title}>Восстановление пароля</div>;
 
 export const ForgetPassword = () => {
-  const [activeStep, setActiveStep] = useState<number>(0);
-  // const [formValues, setformValues] = useState<IformValues>(data);
+  const formValues: IRegistrationState = useAppSelector(
+    (state) => state.registrationForm
+  );
+  const getFields = useFields();
+
+  const display = useForgetPassword();
+
   return (
     <div className={styles.forgetPassword}>
-      <Progress steps={steps} activeStep={activeStep} />
+      <Progress steps={steps} activeStep={formValues.activeStep} />
       <div className={styles.form}>
-        {activeStep !== steps.length && <Title />}
-        {/* <FormRegistration formValues={formValues} /> */}
+        {formValues.activeStep !== steps.length && <Title />}
+        <FormRegistration
+          formValues={formValues}
+          config={getFields()}
+          display={display}
+        />
       </div>
     </div>
   );

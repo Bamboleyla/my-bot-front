@@ -19,14 +19,14 @@ export const IsValueAlreadyRegistered =
       );
 
       const registeringResponse = (
-        data: { message: string },
+        message: string,
         action: IsetEmail | IsetPhoneNumber | IsetTgToken
       ) =>
         dispatch(
           action({
             value,
             error: true,
-            text: data.message,
+            text: message,
           })
         );
 
@@ -37,8 +37,15 @@ export const IsValueAlreadyRegistered =
               email: value,
             }
           );
-          !responseEmail.data.success &&
-            registeringResponse(responseEmail.data, setEmail);
+          responseEmail.data &&
+            registeringResponse("Данный email уже зарегистрирован", setEmail);
+          break;
+        case "isEmailRegistered":
+          const response = await Api.registration.isEmailAlreadyRegistered({
+            email: value,
+          });
+          !response.data &&
+            registeringResponse("Данный email не зарегистрирован", setEmail);
           break;
         case "isPhoneNumberAlreadyRegistered":
           const responsePhone =
@@ -46,7 +53,7 @@ export const IsValueAlreadyRegistered =
               phone: value,
             });
           !responsePhone.data.success &&
-            registeringResponse(responsePhone.data, setPhoneNumber);
+            registeringResponse(responsePhone.data.message, setPhoneNumber);
           break;
         case "isTokenTgAlreadyRegistered":
           const responseToken =
@@ -54,7 +61,7 @@ export const IsValueAlreadyRegistered =
               token: value,
             });
           !responseToken.data.success &&
-            registeringResponse(responseToken.data, setTgToken);
+            registeringResponse(responseToken.data.message, setTgToken);
           break;
         default:
           console.error(`Для process: ${process} сценарий неопределен`);

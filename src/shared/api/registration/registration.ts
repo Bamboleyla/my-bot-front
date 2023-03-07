@@ -2,7 +2,7 @@ import { API } from "../base";
 import { IResponse, IUserDataReq, IUserDataRes } from "./models";
 
 export const isEmailAlreadyRegistered = (data: { email: string }) =>
-  API.post<IResponse>("/api/checkEmail", data);
+  API.post<boolean>("/api/checkEmail", data);
 
 export const isPhoneNumberAlreadyRegistered = (data: { phone: string }) =>
   API.post<IResponse>("/api/checkPhone", data);

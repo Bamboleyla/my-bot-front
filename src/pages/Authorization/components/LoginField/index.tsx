@@ -1,28 +1,22 @@
 import TextField from "@mui/material/TextField";
-import { Dispatch, SetStateAction } from "react";
-import { IAuth } from "../../models";
 import { v4 as uuidv4 } from "uuid";
 
 interface Props {
-  values: IAuth;
-  setValues: Dispatch<SetStateAction<IAuth>>;
+  values: { value: string; error: boolean; errorText: string };
+  setValues: any;
 }
 
 export const LoginField = ({ values, setValues }: Props) => {
+  const { value, error, errorText } = values;
   return (
     <TextField
-      error={values.login.error}
+      error={error}
       id={uuidv4()}
       label="email"
       variant="filled"
-      onChange={(event) =>
-        setValues({
-          ...values,
-          login: { ...values.login, value: event.target.value },
-        })
-      }
-      value={values.login.value}
-      helperText={values.login.errorText}
+      onChange={(event) => setValues(event.target.value)}
+      value={value}
+      helperText={errorText}
     />
   );
 };

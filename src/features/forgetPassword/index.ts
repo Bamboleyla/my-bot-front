@@ -8,6 +8,7 @@ import { registrationFormSlice } from "../../entities/registration";
 import { useNavigate } from "react-router-dom";
 import { steps } from "../../pages/Registration";
 import { useEffect } from "react";
+import { formatsResponse } from "../../shared/helpers/formatsResponse";
 
 export interface IuseRegistration {
   nextStep: () => void;
@@ -54,39 +55,33 @@ export const useForgetPassword = (): IuseRegistration => {
   const nextStep = (): void => {
     let isThereError: boolean = false;
 
-    const formatsResponse = (
-      action: any,
-      value: string = "",
-      text: string = "Поле не может быть пустым"
-    ) => {
-      isThereError = true;
-      dispatch(
-        action({
-          value,
-          error: true,
-          text,
-        })
-      );
-    };
     switch (activeStep) {
       case 0:
-        if (email.value === "") formatsResponse(setEmail);
+        if (email.value === "")
+          dispatch(formatsResponse(isThereError, setEmail));
         if (!isThereError) {
           dispatch(IsValueAlreadyRegistered(email.value, "isEmailRegistered"));
         }
         break;
       case 1:
-        if (password.value === "") formatsResponse(setPassword);
-        if (repeatPassword.value === "") formatsResponse(setRepeatPassword);
+        if (password.value === "")
+          dispatch(formatsResponse(isThereError, setPassword));
+        if (repeatPassword.value === "")
+          dispatch(formatsResponse(isThereError, setRepeatPassword));
         if (repeatPassword.value !== password.value)
-          formatsResponse(
-            setRepeatPassword,
-            repeatPassword.value,
-            "Пароль не совпадает"
+          dispatch(
+            formatsResponse(
+              isThereError,
+              setRepeatPassword,
+              repeatPassword.value,
+              "Пароль не совпадает"
+            )
           );
 
         const result = (message: string) =>
-          formatsResponse(setPassword, password.value, message);
+          dispatch(
+            formatsResponse(isThereError, setPassword, password.value, message)
+          );
         if (password.value.length < 6)
           result("Пароль не может быть короче 6 символов");
         if (!/[A-Z]/g.test(password.value))
@@ -106,10 +101,18 @@ export const useForgetPassword = (): IuseRegistration => {
         break;
       case 2:
         // Код для активации акаунта состоит из строки 4 цифры
-        if (emailCode.value === "") formatsResponse(setEmailCode);
+        if (emailCode.value === "")
+          dispatch(formatsResponse(isThereError, setEmailCode));
 
         if (emailCode.value.length !== 4 || /\D/g.test(emailCode.value))
-          formatsResponse(setEmailCode, emailCode.value, "Код неверный");
+          dispatch(
+            formatsResponse(
+              isThereError,
+              setEmailCode,
+              emailCode.value,
+              "Код неверный"
+            )
+          );
 
         if (!isThereError) {
           dispatch(

@@ -31,6 +31,7 @@ export const IsValueAlreadyRegistered =
         );
 
       switch (process) {
+        // Используется при регистрации, когда важно что-бы email не был зарегестрирован
         case "isEmailAlreadyRegistered":
           const responseEmail = await Api.registration.isEmailAlreadyRegistered(
             {
@@ -40,6 +41,7 @@ export const IsValueAlreadyRegistered =
           responseEmail.data &&
             registeringResponse("Данный email уже зарегистрирован", setEmail);
           break;
+        // Используется при сбросе пароля, когда важно, что-бы email уже был зарегестрирован
         case "isEmailRegistered":
           const response = await Api.registration.isEmailAlreadyRegistered({
             email: value,
@@ -52,16 +54,22 @@ export const IsValueAlreadyRegistered =
             await Api.registration.isPhoneNumberAlreadyRegistered({
               phone: value,
             });
-          !responsePhone.data.success &&
-            registeringResponse(responsePhone.data.message, setPhoneNumber);
+          responsePhone.data &&
+            registeringResponse(
+              "Данный номер телефона уже зарегистрирован",
+              setPhoneNumber
+            );
           break;
         case "isTokenTgAlreadyRegistered":
           const responseToken =
             await Api.registration.isTgTokenAlreadyRegistered({
               token: value,
             });
-          !responseToken.data.success &&
-            registeringResponse(responseToken.data.message, setTgToken);
+          responseToken.data &&
+            registeringResponse(
+              "Данный telegram token уже зарегистрирован",
+              setTgToken
+            );
           break;
         default:
           console.error(`Для process: ${process} сценарий неопределен`);

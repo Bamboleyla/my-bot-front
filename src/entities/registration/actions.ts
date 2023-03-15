@@ -32,7 +32,7 @@ export const IsValueAlreadyRegistered =
 
       switch (process) {
         // Используется при регистрации, когда важно что-бы email не был зарегестрирован
-        case "isEmailAlreadyRegistered":
+        case "IsThisEmailFree":
           const responseEmail = await Api.registration.isEmailAlreadyRegistered(
             {
               email: value,

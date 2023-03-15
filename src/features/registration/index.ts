@@ -113,7 +113,7 @@ export const useRegistration = (): IuseRegistration => {
         if (city.value === "") dispatch(formatsResponse(isThereError, setCity));
         if (!isThereError) {
           dispatch(() => {
-            IsValueAlreadyRegistered(email.value, "isEmailAlreadyRegistered");
+            IsValueAlreadyRegistered(email.value, "IsThisEmailFree");
             IsValueAlreadyRegistered(
               phoneNumber.value,
               "isPhoneNumberAlreadyRegistered"

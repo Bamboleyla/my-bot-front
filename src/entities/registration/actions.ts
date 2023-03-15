@@ -107,7 +107,10 @@ export const ChekEmailCode =
             text: data.message,
           })
         );
-      else navigate("/main");
+      else {
+        dispatch(registrationFormSlice.actions.reset());
+        navigate("/main");
+      }
       dispatch(
         registrationFormSlice.actions.deleteLoadingProcess({
           value: "ChekEmailCode",

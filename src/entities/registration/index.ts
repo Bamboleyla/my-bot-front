@@ -5,6 +5,9 @@ export const registrationFormSlice = createSlice({
   name: "registrationForm",
   initialState,
   reducers: {
+    reset() {
+      return initialState;
+    },
     setFirstName(
       state,
       action: PayloadAction<{ value: string; error: boolean; text: string }>

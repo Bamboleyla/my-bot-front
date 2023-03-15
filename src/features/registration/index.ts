@@ -81,44 +81,53 @@ export const useRegistration = (): IuseRegistration => {
       case 0:
         if (firstName.error || middleName.error || lastName.error)
           isThereError = true;
-        if (firstName.value === "")
-          dispatch(formatsResponse(isThereError, setFirstName));
-        if (middleName.value === "")
-          dispatch(formatsResponse(isThereError, setMiddleName));
-        if (lastName.value === "")
-          dispatch(formatsResponse(isThereError, setLastName));
+        if (firstName.value === "") {
+          dispatch(formatsResponse(setFirstName));
+          isThereError = true;
+        }
+        if (middleName.value === "") {
+          dispatch(formatsResponse(setMiddleName));
+          isThereError = true;
+        }
+        if (lastName.value === "") {
+          dispatch(formatsResponse(setLastName));
+          isThereError = true;
+        }
         !isThereError && dispatch(setActiveStep({ value: activeStep + 1 }));
         break;
       case 1:
-        if (phoneNumber.value === "+7")
+        if (phoneNumber.value === "+7") {
           dispatch(
-            formatsResponse(
-              isThereError,
-              setPhoneNumber,
-              "+7",
-              "Укажите свой номер телефона"
-            )
+            formatsResponse(setPhoneNumber, "+7", "Укажите свой номер телефона")
           );
-        if (phoneNumber.value.length < 16)
+          isThereError = true;
+        }
+        if (phoneNumber.value.length < 16) {
           dispatch(
             formatsResponse(
-              isThereError,
               setPhoneNumber,
               phoneNumber.value,
               "Номер телефона не может быть короче 11 цифер"
             )
           );
-        if (email.value === "")
-          dispatch(formatsResponse(isThereError, setEmail));
-        if (city.value === "") dispatch(formatsResponse(isThereError, setCity));
+          isThereError = true;
+        }
+        if (email.value === "") {
+          dispatch(formatsResponse(setEmail));
+          isThereError = true;
+        }
+        if (city.value === "") {
+          dispatch(formatsResponse(setCity));
+          isThereError = true;
+        }
         if (!isThereError) {
-          dispatch(() => {
-            IsValueAlreadyRegistered(email.value, "IsThisEmailFree");
+          dispatch(IsValueAlreadyRegistered(email.value, "IsThisEmailFree"));
+          dispatch(
             IsValueAlreadyRegistered(
               phoneNumber.value,
               "isPhoneNumberAlreadyRegistered"
-            );
-          });
+            )
+          );
         }
         break;
       case 2:
@@ -139,24 +148,29 @@ export const useRegistration = (): IuseRegistration => {
           );
         break;
       case 3:
-        if (password.value === "")
-          dispatch(formatsResponse(isThereError, setPassword));
-        if (repeatPassword.value === "")
-          dispatch(formatsResponse(isThereError, setRepeatPassword));
-        if (repeatPassword.value !== password.value)
+        if (password.value === "") {
+          dispatch(formatsResponse(setPassword));
+          isThereError = true;
+        }
+        if (repeatPassword.value === "") {
+          dispatch(formatsResponse(setRepeatPassword));
+          isThereError = true;
+        }
+        if (repeatPassword.value !== password.value) {
           dispatch(
             formatsResponse(
-              isThereError,
               setRepeatPassword,
               repeatPassword.value,
               "Пароль не совпадает"
             )
           );
+          isThereError = true;
+        }
 
-        const result = (message: string) =>
-          dispatch(
-            formatsResponse(isThereError, setPassword, password.value, message)
-          );
+        const result = (message: string) => {
+          dispatch(formatsResponse(setPassword, password.value, message));
+          isThereError = true;
+        };
         if (password.value.length < 6)
           result("Пароль не может быть короче 6 символов");
         if (!/[A-Z]/g.test(password.value))
@@ -185,18 +199,17 @@ export const useRegistration = (): IuseRegistration => {
         break;
       case 4:
         // Код для активации акаунта состоит из строки 4 цифры
-        if (emailCode.value === "")
-          dispatch(formatsResponse(isThereError, setEmailCode));
+        if (emailCode.value === "") {
+          dispatch(formatsResponse(setEmailCode));
+          isThereError = true;
+        }
 
-        if (emailCode.value.length !== 4 || /\D/g.test(emailCode.value))
+        if (emailCode.value.length !== 4 || /\D/g.test(emailCode.value)) {
           dispatch(
-            formatsResponse(
-              isThereError,
-              setEmailCode,
-              emailCode.value,
-              "Код неверный"
-            )
+            formatsResponse(setEmailCode, emailCode.value, "Код неверный")
           );
+          isThereError = true;
+        }
 
         if (!isThereError) {
           dispatch(ChekEmailCode(email.value, emailCode.value, navigate));

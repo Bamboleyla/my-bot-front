@@ -50,7 +50,8 @@ export const changePassword =
         let message = "Действие выполнено!";
         let description = `Пароль от  ${data.email} был успешно изменен`;
         notification.info({ message, description, placement: "topLeft" });
-        navigate("/auth");
+        dispatch(registrationFormSlice.actions.reset());
+        navigate("/main");
       } else if (response.status === 400)
         dispatch(
           registrationFormSlice.actions.setEmailCode({

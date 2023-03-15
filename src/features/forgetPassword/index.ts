@@ -57,31 +57,39 @@ export const useForgetPassword = (): IuseRegistration => {
 
     switch (activeStep) {
       case 0:
-        if (email.value === "")
-          dispatch(formatsResponse(isThereError, setEmail));
+        if (email.value === "") {
+          dispatch(formatsResponse(setEmail));
+          isThereError = true;
+        }
         if (!isThereError) {
           dispatch(IsValueAlreadyRegistered(email.value, "isEmailRegistered"));
         }
         break;
       case 1:
-        if (password.value === "")
-          dispatch(formatsResponse(isThereError, setPassword));
-        if (repeatPassword.value === "")
-          dispatch(formatsResponse(isThereError, setRepeatPassword));
-        if (repeatPassword.value !== password.value)
+        if (password.value === "") {
+          dispatch(formatsResponse(setPassword));
+          isThereError = true;
+        }
+        if (repeatPassword.value === "") {
+          dispatch(formatsResponse(setRepeatPassword));
+          isThereError = true;
+        }
+        if (repeatPassword.value !== password.value) {
           dispatch(
             formatsResponse(
-              isThereError,
               setRepeatPassword,
               repeatPassword.value,
               "Пароль не совпадает"
             )
           );
+          isThereError = true;
+        }
 
-        const result = (message: string) =>
-          dispatch(
-            formatsResponse(isThereError, setPassword, password.value, message)
-          );
+        const result = (message: string) => {
+          dispatch(formatsResponse(setPassword, password.value, message));
+          isThereError = true;
+        };
+
         if (password.value.length < 6)
           result("Пароль не может быть короче 6 символов");
         if (!/[A-Z]/g.test(password.value))
@@ -101,18 +109,17 @@ export const useForgetPassword = (): IuseRegistration => {
         break;
       case 2:
         // Код для активации акаунта состоит из строки 4 цифры
-        if (emailCode.value === "")
-          dispatch(formatsResponse(isThereError, setEmailCode));
+        if (emailCode.value === "") {
+          dispatch(formatsResponse(setEmailCode));
+          isThereError = true;
+        }
 
-        if (emailCode.value.length !== 4 || /\D/g.test(emailCode.value))
+        if (emailCode.value.length !== 4 || /\D/g.test(emailCode.value)) {
           dispatch(
-            formatsResponse(
-              isThereError,
-              setEmailCode,
-              emailCode.value,
-              "Код неверный"
-            )
+            formatsResponse(setEmailCode, emailCode.value, "Код неверный")
           );
+          isThereError = true;
+        }
 
         if (!isThereError) {
           dispatch(

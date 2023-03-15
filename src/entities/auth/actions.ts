@@ -15,11 +15,7 @@ export const logIn =
       );
       const { status, data } = await Api.auth.logIn({ email, password });
       if (status === 200) {
-        dispatch(
-          registrationFormSlice.actions.deleteLoadingProcess({
-            value: "logIn",
-          })
-        );
+        dispatch(registrationFormSlice.actions.reset());
         navigate("/main");
       } else if (status === 400) {
         notification.info({
@@ -28,6 +24,11 @@ export const logIn =
           placement: "topLeft",
         });
       }
+      dispatch(
+        registrationFormSlice.actions.deleteLoadingProcess({
+          value: "logIn",
+        })
+      );
     } catch (error: any) {
       console.error(error);
     }

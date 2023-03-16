@@ -179,23 +179,24 @@ export const useRegistration = (): IuseRegistration => {
           result("Пароль должен содержать хотя бы одну строчную букву");
         if (!/[0-9]/g.test(password.value))
           result("Пароль должен содержать хотя бы одну цифру");
-        if (!isThereError) dispatch(setActiveStep({ value: activeStep + 1 }));
+        if (!isThereError) {
+          registerNewUser({
+            firstName: firstName.value,
+            lastName: lastName.value,
+            middleName: middleName.value,
+            phoneNumber: phoneNumber.value.replace(/\s|[()]/g, ""),
+            email: email.value,
+            country: country.value,
+            city: city.value,
+            tgToken: tgToken.value,
+            password: password.value,
+          });
 
-        registerNewUser({
-          firstName: firstName.value,
-          lastName: lastName.value,
-          middleName: middleName.value,
-          phoneNumber: phoneNumber.value.replace(/\s|[()]/g, ""),
-          email: email.value,
-          country: country.value,
-          city: city.value,
-          tgToken: tgToken.value,
-          password: password.value,
-        });
-
-        let message = "Новое Письмо!";
-        let description = `Вам на ваш почтовый ящик ${email.value} выслано письмо с кодом активации акаунта`;
-        notification.info({ message, description, placement: "topLeft" });
+          let message = "Новое Письмо!";
+          let description = `Вам на ваш почтовый ящик ${email.value} выслано письмо с кодом активации акаунта`;
+          notification.info({ message, description, placement: "topLeft" });
+          dispatch(setActiveStep({ value: activeStep + 1 }));
+        }
         break;
       case 4:
         // Код для активации акаунта состоит из строки 4 цифры

@@ -18,7 +18,7 @@ export const Authorization = () => {
 
   const sendDate = useAuth();
 
-  const { setEmail, setPassword } = registrationFormSlice.actions;
+  const { setEmail, setPassword, reset } = registrationFormSlice.actions;
   const formValues: IRegistrationState = useAppSelector(
     (state) => state.registrationForm
   );
@@ -68,7 +68,10 @@ export const Authorization = () => {
             </Stack>
             <div
               className={styles.forget}
-              onClick={() => navigate("/forgetPassword")}
+              onClick={() => {
+                dispatch(reset());
+                navigate("/forgetPassword");
+              }}
             >
               Забыли пароль?
             </div>

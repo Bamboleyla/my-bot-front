@@ -5,7 +5,7 @@ import { IRegistrationState } from "../../entities/registration/models";
 import { formatsResponse } from "../../shared/helpers/formatsResponse";
 import { useNavigate } from "react-router-dom";
 
-export const useAuth = () => {
+export const useAuth = (): (() => void) => {
   const formValues: IRegistrationState = useAppSelector(
     (state) => state.registrationForm
   );

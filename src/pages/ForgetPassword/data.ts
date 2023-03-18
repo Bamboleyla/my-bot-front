@@ -12,7 +12,7 @@ export interface IgetFields {
   disabled?: boolean;
 }
 
-export const useFields = () => {
+export const useFields = (): (() => IgetFields[][]) => {
   const dispatch = useAppDispatch();
 
   const { setEmail, setPassword, setRepeatPassword, setEmailCode } =

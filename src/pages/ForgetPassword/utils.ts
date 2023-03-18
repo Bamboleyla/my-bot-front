@@ -1,3 +1,5 @@
+import validator from "validator";
+
 const fillAnswer = (
   value: string = "",
   error: boolean = false,
@@ -118,11 +120,18 @@ export const getPasswordAccordingToTheTemplate = (
 export const getEmailAccordingToTheTemplate = (
   value: string
 ): { value: string; error: boolean; text: string } => {
-  return /[^a-z0-9@._]/g.test(value)
-    ? {
-        value,
-        error: true,
-        text: "Могут использоваться только не заглавный Латинские буквы, цифры,нижнее подчеркивание и @",
-      }
-    : fillAnswer(value);
+  if (!validator.isEmail(value))
+    // validator принимает email типа hi.hi@gmail.com , считает их корректными
+    return {
+      value,
+      error: true,
+      text: "Формат email неверный",
+    };
+  if (/[^\w@.]/g.test(value))
+    return {
+      value,
+      error: true,
+      text: "Формат email неверный",
+    };
+  return fillAnswer(value.toLowerCase());
 };

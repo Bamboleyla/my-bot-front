@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoginField Проверка срабатывания setValue при вводе значения в input 1`] = `<div />`;

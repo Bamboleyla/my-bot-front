@@ -16,6 +16,7 @@ export const LoginField = ({ values, setValues }: Props) => {
       onChange={(event) => setValues(event.target.value)}
       value={value}
       helperText={errorText}
+      inputProps={{ "data-testid": "content-input" }}
     />
   );
 };

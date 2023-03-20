@@ -1,19 +1,25 @@
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 import { LoginField } from ".";
 
 describe("LoginField", () => {
-  render(
-    <LoginField
-      values={{ value: "Login", error: false, errorText: "" }}
-      setValues={() => {}}
-    />
-  );
-  const input = screen.getByDisplayValue("Login");
-  const label = screen.getByLabelText("email");
+  const values = { value: "Login", error: false, errorText: "" };
+  const setValue = jest.fn();
 
-  test("Присутствие элементов", () => {
-    expect(label).toBeInTheDocument();
-    expect(input).toBeInTheDocument();
+  test("Присутствие элемента", () => {
+    render(<LoginField values={values} setValues={setValue} />);
+    const contentInput = screen.getByTestId("content-input");
+
+    expect(contentInput).toBeInTheDocument();
+  });
+
+  test("вызов onChange", () => {
+    render(<LoginField values={values} setValues={setValue} />);
+    const contentInput = screen.getByTestId("content-input");
+
+    userEvent.type(contentInput, "foo");
+
+    expect(setValue).toHaveBeenCalled();
   });
 });

@@ -4,14 +4,37 @@ import { registrationFormSlice } from "../../entities/registration";
 import { IRegistrationState } from "../../entities/registration/models";
 import { formatsResponse } from "../../shared/helpers/formatsResponse";
 import { useNavigate } from "react-router-dom";
+import { getEmailAccordingToTheTemplate } from "../../pages/ForgetPassword/utils";
 
-export const useAuth = (): (() => void) => {
+export const useAuth = () => {
   const formValues: IRegistrationState = useAppSelector(
     (state) => state.registrationForm
   );
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  const { setEmail, setPassword, reset } = registrationFormSlice.actions;
+
+  const setEmailValue = (value: string) =>
+    dispatch(setEmail(getEmailAccordingToTheTemplate(value)));
+
+  const setPasswordValue = (value: string) =>
+    dispatch(
+      setPassword({
+        value,
+        error: formValues.data.password.error,
+        text: formValues.data.password.errorText,
+      })
+    );
+
+  const config = {
+    fieldData: formValues.data.password,
+    label: "Пароль",
+    setValue: setPasswordValue,
+  };
+
+  const loginValue = formValues.data.email;
 
   const sendDate = () => {
     let isThereError: boolean = false;
@@ -32,5 +55,10 @@ export const useAuth = (): (() => void) => {
       dispatch(logIn(email.value, password.value, navigate));
     }
   };
-  return sendDate;
+
+  const goToForgetPassword = () => {
+    dispatch(reset());
+    navigate("/forgetPassword");
+  };
+  return { sendDate, setEmailValue, config, goToForgetPassword, loginValue };
 };

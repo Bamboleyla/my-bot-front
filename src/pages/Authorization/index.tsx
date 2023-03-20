@@ -6,40 +6,13 @@ import { LoginField } from "./components/LoginField";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../features/auth";
 import { PasswordField } from "../../shared/ui/PasswordField";
-import { getEmailAccordingToTheTemplate } from "../ForgetPassword/utils";
-import { useAppDispatch, useAppSelector } from "../../app/redux";
-import { registrationFormSlice } from "../../entities/registration";
-import { IRegistrationState } from "../../entities/registration/models";
 import { Box } from "@mui/system";
 
 export const Authorization = () => {
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
 
-  const sendDate = useAuth();
-
-  const { setEmail, setPassword, reset } = registrationFormSlice.actions;
-  const formValues: IRegistrationState = useAppSelector(
-    (state) => state.registrationForm
-  );
-
-  const setEmailValue = (value: string) =>
-    dispatch(setEmail(getEmailAccordingToTheTemplate(value)));
-
-  const setPasswordValue = (value: string) =>
-    dispatch(
-      setPassword({
-        value,
-        error: formValues.data.password.error,
-        text: formValues.data.password.errorText,
-      })
-    );
-
-  const config = {
-    fieldData: formValues.data.password,
-    label: "Пароль",
-    setValue: setPasswordValue,
-  };
+  const { sendDate, setEmailValue, config, goToForgetPassword, loginValue } =
+    useAuth();
 
   return (
     <div className={styles.form}>
@@ -47,10 +20,7 @@ export const Authorization = () => {
       <div className={styles.wrap}>
         <Box sx={{ width: "40ch" }}>
           <Stack spacing={2}>
-            <LoginField
-              values={formValues.data.email}
-              setValues={setEmailValue}
-            />
+            <LoginField values={loginValue} setValues={setEmailValue} />
             <PasswordField config={config} />
           </Stack>
 
@@ -66,13 +36,7 @@ export const Authorization = () => {
                 Регистрация
               </Button>
             </Stack>
-            <div
-              className={styles.forget}
-              onClick={() => {
-                dispatch(reset());
-                navigate("/forgetPassword");
-              }}
-            >
+            <div className={styles.forget} onClick={goToForgetPassword}>
               Забыли пароль?
             </div>
           </div>

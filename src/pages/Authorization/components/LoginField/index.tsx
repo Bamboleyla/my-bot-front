@@ -1,5 +1,4 @@
 import TextField from "@mui/material/TextField";
-import { v4 as uuidv4 } from "uuid";
 
 interface Props {
   values: { value: string; error: boolean; errorText: string };
@@ -11,7 +10,7 @@ export const LoginField = ({ values, setValues }: Props) => {
   return (
     <TextField
       error={error}
-      id={uuidv4()}
+      id={"LoginField"}
       label="email"
       variant="filled"
       onChange={(event) => setValues(event.target.value)}

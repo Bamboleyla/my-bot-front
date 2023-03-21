@@ -5,7 +5,7 @@ import {
   getPhoneNumberAccordingToTheTemplate,
   getEmailAccordingToTheTemplate,
   getPasswordAccordingToTheTemplate,
-} from "../ForgetPassword/utils";
+} from "./utils";
 
 export interface IgetFields {
   label: string;

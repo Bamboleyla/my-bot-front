@@ -1,6 +1,4 @@
 export interface IUser {
-  id: number;
-  name: string;
-  isLoading: boolean;
+  isLoading: string[];
   isDarkBrowserModeEnabled: boolean;
 }

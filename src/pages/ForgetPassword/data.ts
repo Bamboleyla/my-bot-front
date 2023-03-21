@@ -3,7 +3,7 @@ import { registrationFormSlice } from "../../entities/registration";
 import {
   getEmailAccordingToTheTemplate,
   getPasswordAccordingToTheTemplate,
-} from "../ForgetPassword/utils";
+} from "../Registration/utils";
 
 export interface IgetFields {
   label: string;

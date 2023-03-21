@@ -4,7 +4,7 @@ import { registrationFormSlice } from "../../entities/registration";
 import { IRegistrationState } from "../../entities/registration/models";
 import { formatsResponse } from "../../shared/helpers/formatsResponse";
 import { useNavigate } from "react-router-dom";
-import { getEmailAccordingToTheTemplate } from "../../pages/ForgetPassword/utils";
+import { getEmailAccordingToTheTemplate } from "../../pages/Registration/utils";
 
 export const useAuth = () => {
   const formValues: IRegistrationState = useAppSelector(

@@ -5,25 +5,15 @@ export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    userAuth(state) {
-      state.isLoading = true;
+    addLoadingProcess(state, action: PayloadAction<{ value: string }>) {
+      state.isLoading = [...state.isLoading, action.payload.value];
     },
-    userAuthSuccess(
-      state,
-      action: PayloadAction<{
-        id: number;
-        name: string;
-      }>
-    ) {
-      state.isLoading = false;
-      state.id = action.payload.id;
-      state.name = action.payload.name;
+    deleteLoadingProcess(state, action: PayloadAction<{ value: string }>) {
+      state.isLoading = state.isLoading.filter(
+        (process) => process !== action.payload.value
+      );
     },
-    userAuthError(state, action) {
-      state.isLoading = false;
-      console.error(action.payload);
-    },
-    setDarkBrowserMode(state, action) {
+    setDarkBrowserMode(state, action: PayloadAction<{ value: boolean }>) {
       state.isDarkBrowserModeEnabled = action.payload.value;
     },
   },

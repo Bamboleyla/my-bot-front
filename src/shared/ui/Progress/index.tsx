@@ -4,15 +4,14 @@ import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 
-export const Progress = ({
-  steps,
-  activeStep,
-}: {
+interface Props {
   steps: string[];
   activeStep: number;
-}) => {
+}
+
+export const Progress = ({ steps, activeStep }: Props) => {
   return (
-    <div className={styles.progress}>
+    <div className={styles.progress} data-testid="progress">
       <Box sx={{ width: "100%" }}>
         <Stepper activeStep={activeStep}>
           {steps.map((label) => {

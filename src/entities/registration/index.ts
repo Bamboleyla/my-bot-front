@@ -1,5 +1,6 @@
 import { initialState } from "./initialState";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { IRegistrationState } from "./models";
 
 export const registrationFormSlice = createSlice({
   name: "registrationForm",
@@ -9,7 +10,7 @@ export const registrationFormSlice = createSlice({
       return initialState;
     },
     setFirstName(
-      state,
+      state: IRegistrationState,
       action: PayloadAction<{ value: string; error: boolean; text: string }>
     ) {
       state.data.firstName.value = action.payload.value;
@@ -17,7 +18,7 @@ export const registrationFormSlice = createSlice({
       state.data.firstName.errorText = action.payload.text;
     },
     setLastName(
-      state,
+      state: IRegistrationState,
       action: PayloadAction<{ value: string; error: boolean; text: string }>
     ) {
       state.data.lastName.value = action.payload.value;
@@ -25,7 +26,7 @@ export const registrationFormSlice = createSlice({
       state.data.lastName.errorText = action.payload.text;
     },
     setMiddleName(
-      state,
+      state: IRegistrationState,
       action: PayloadAction<{ value: string; error: boolean; text: string }>
     ) {
       state.data.middleName.value = action.payload.value;
@@ -33,7 +34,7 @@ export const registrationFormSlice = createSlice({
       state.data.middleName.errorText = action.payload.text;
     },
     setPhoneNumber(
-      state,
+      state: IRegistrationState,
       action: PayloadAction<{ value: string; error: boolean; text: string }>
     ) {
       state.data.phoneNumber.value = action.payload.value;
@@ -41,7 +42,7 @@ export const registrationFormSlice = createSlice({
       state.data.phoneNumber.errorText = action.payload.text;
     },
     setEmail(
-      state,
+      state: IRegistrationState,
       action: PayloadAction<{ value: string; error: boolean; text: string }>
     ) {
       state.data.email.value = action.payload.value;
@@ -49,7 +50,7 @@ export const registrationFormSlice = createSlice({
       state.data.email.errorText = action.payload.text;
     },
     setCountry(
-      state,
+      state: IRegistrationState,
       action: PayloadAction<{ value: string; error: boolean; text: string }>
     ) {
       state.data.country.value = action.payload.value;
@@ -57,7 +58,7 @@ export const registrationFormSlice = createSlice({
       state.data.country.errorText = action.payload.text;
     },
     setCity(
-      state,
+      state: IRegistrationState,
       action: PayloadAction<{ value: string; error: boolean; text: string }>
     ) {
       state.data.city.value = action.payload.value;
@@ -65,7 +66,7 @@ export const registrationFormSlice = createSlice({
       state.data.city.errorText = action.payload.text;
     },
     setTgToken(
-      state,
+      state: IRegistrationState,
       action: PayloadAction<{ value: string; error: boolean; text: string }>
     ) {
       state.data.tgToken.value = action.payload.value;
@@ -73,7 +74,7 @@ export const registrationFormSlice = createSlice({
       state.data.tgToken.errorText = action.payload.text;
     },
     setPassword(
-      state,
+      state: IRegistrationState,
       action: PayloadAction<{ value: string; error: boolean; text: string }>
     ) {
       state.data.password.value = action.payload.value;
@@ -81,26 +82,35 @@ export const registrationFormSlice = createSlice({
       state.data.password.errorText = action.payload.text;
     },
     setRepeatPassword(
-      state,
+      state: IRegistrationState,
       action: PayloadAction<{ value: string; error: boolean; text: string }>
     ) {
       state.data.repeatPassword.value = action.payload.value;
       state.data.repeatPassword.error = action.payload.error;
       state.data.repeatPassword.errorText = action.payload.text;
     },
-    addLoadingProcess(state, action: PayloadAction<{ value: string }>) {
+    addLoadingProcess(
+      state: IRegistrationState,
+      action: PayloadAction<{ value: string }>
+    ) {
       state.isLoading = [...state.isLoading, action.payload.value];
     },
-    deleteLoadingProcess(state, action: PayloadAction<{ value: string }>) {
+    deleteLoadingProcess(
+      state: IRegistrationState,
+      action: PayloadAction<{ value: string }>
+    ) {
       state.isLoading = state.isLoading.filter(
         (process) => process !== action.payload.value
       );
     },
-    setActiveStep(state, action: PayloadAction<{ value: number }>) {
+    setActiveStep(
+      state: IRegistrationState,
+      action: PayloadAction<{ value: number }>
+    ) {
       state.activeStep = action.payload.value;
     },
     setEmailCode(
-      state,
+      state: IRegistrationState,
       action: PayloadAction<{ value: string; error: boolean; text: string }>
     ) {
       state.data.emailCode.value = action.payload.value;

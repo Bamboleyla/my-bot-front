@@ -1,4 +1,3 @@
-import { v4 as uuidv4 } from "uuid";
 import InputLabel from "@mui/material/InputLabel";
 import {
   FilledInput,
@@ -26,7 +25,7 @@ export const PasswordField = ({ config }: { config: Props }) => {
     <FormControl error={fieldData.error} variant="filled">
       <InputLabel htmlFor="filled-adornment-password">{label}</InputLabel>
       <FilledInput
-        id={uuidv4()}
+        id={"PasswordField"}
         type={showPassword ? "text" : "password"}
         onChange={(event) => setValue(event.target.value, fieldData.value)}
         value={fieldData.value}
@@ -41,8 +40,11 @@ export const PasswordField = ({ config }: { config: Props }) => {
             </IconButton>
           </InputAdornment>
         }
+        inputProps={{ "data-testid": "content-input" }}
       />
-      <FormHelperText id={uuidv4()}>{fieldData.errorText}</FormHelperText>
+      <FormHelperText id={"PasswordFormHelperText"}>
+        {fieldData.errorText}
+      </FormHelperText>
     </FormControl>
   );
 };

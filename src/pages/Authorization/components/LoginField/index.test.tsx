@@ -21,5 +21,9 @@ describe("LoginField", () => {
     userEvent.type(contentInput, "foo");
 
     expect(setValue).toHaveBeenCalled();
+    expect(setValue).toBeCalledTimes(3);
+    expect(setValue).toHaveBeenCalledWith("Loginf");
+    expect(setValue).toHaveBeenCalledWith("Logino");
+    expect(setValue).toHaveBeenLastCalledWith("Logino");
   });
 });

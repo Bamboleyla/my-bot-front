@@ -15,7 +15,7 @@ export const FieldsSkeleton = () => {
           variant="rounded"
           width={item.width}
           height={item.height}
-          data-testid={"skeleton " + index}
+          data-testid={"skeleton"}
         />
       ))}
     </Stack>

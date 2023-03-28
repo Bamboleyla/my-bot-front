@@ -41,9 +41,11 @@ describe("PasswordField", () => {
     // Изначально VisibilityIcon активна, а VisibilityOffIcon отсутствует
     const showPassword = screen.getByTestId("VisibilityIcon");
     const hiddenPassword = screen.queryByTestId("VisibilityOffIcon");
+    const input = screen.getByTestId("content-input");
 
     expect(showPassword).toBeInTheDocument();
     expect(hiddenPassword).not.toBeInTheDocument();
+    expect(input).toHaveAttribute("type", "password");
 
     // после нажатия на VisibilityIcon...
     userEvent.click(showPassword);
@@ -54,5 +56,6 @@ describe("PasswordField", () => {
 
     expect(showPasswordIcon).not.toBeInTheDocument();
     expect(hiddenPasswordIcon).toBeInTheDocument();
+    expect(input).toHaveAttribute("type", "text");
   });
 });

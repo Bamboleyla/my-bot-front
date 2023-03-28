@@ -22,7 +22,11 @@ export const PasswordField = ({ config }: { config: Props }) => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <FormControl error={fieldData.error} variant="filled">
+    <FormControl
+      error={fieldData.error}
+      variant="filled"
+      data-testid={"PasswordField"}
+    >
       <InputLabel htmlFor="filled-adornment-password">{label}</InputLabel>
       <FilledInput
         id={"PasswordField"}

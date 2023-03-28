@@ -1,5 +1,4 @@
 import TextField from "@mui/material/TextField";
-import { v4 as uuidv4 } from "uuid";
 import { PasswordField } from "../../../PasswordField";
 import { IField } from "./models";
 
@@ -26,12 +25,13 @@ export const Field = ({
     <TextField
       error={error}
       disabled={disabled}
-      id={uuidv4()}
+      id={valueKey}
       label={label}
       variant="filled"
       onChange={(event) => setValue(event.target.value, value)}
       value={value}
       helperText={errorText}
+      data-testid={"MUItextField"}
     />
   );
 };

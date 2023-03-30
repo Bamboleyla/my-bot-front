@@ -10,7 +10,7 @@ export const Buttons = ({
   getButtonTitle,
 }: IuseRegistration) => {
   return (
-    <div className={styles.buttons}>
+    <div className={styles.buttons} data-testid={"Buttons"}>
       <React.Fragment>
         <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
           <Button

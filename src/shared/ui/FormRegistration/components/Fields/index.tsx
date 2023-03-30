@@ -10,7 +10,7 @@ export const Fields = ({ config, formValues }: IFields) => {
     ));
 
   return (
-    <Stack spacing={2}>
+    <Stack spacing={2} data-testid={"Fields"}>
       {formValues.isLoading.length === 0 ? fields() : <FieldsSkeleton />}
     </Stack>
   );

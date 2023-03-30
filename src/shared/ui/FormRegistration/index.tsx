@@ -7,7 +7,7 @@ import { IFormRegistration } from "./models";
 export const FormRegistration = memo(
   ({ formValues, config, display }: IFormRegistration) => {
     return (
-      <Box sx={{ width: "40ch" }}>
+      <Box sx={{ width: "40ch" }} data-testid={"FormRegistration"}>
         <Fields config={config} formValues={formValues} />
         <Buttons {...display} />
       </Box>

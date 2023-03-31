@@ -14,7 +14,7 @@ describe("Progress", () => {
   const step3 = screen.getByText("3");
 
   test("Присутствие элементов", () => {
-    const progress = screen.getByTestId("progress");
+    const progress = screen.getByTestId("Progress");
 
     expect(progress).toBeInTheDocument();
     expect(step1).toBeInTheDocument();

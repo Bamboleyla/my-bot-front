@@ -14,12 +14,13 @@ export const Registration = () => {
   const formValues: IRegistrationState = useAppSelector(
     (state) => state.registrationForm
   );
+
   const getFields = useFields();
 
   const display = useRegistration();
 
   return (
-    <div className={styles.registration}>
+    <div className={styles.registration} data-testid={"Registration"}>
       <Progress steps={steps} activeStep={formValues.activeStep} />
       <div className={styles.form}>
         {formValues.activeStep !== steps.length && <Title />}

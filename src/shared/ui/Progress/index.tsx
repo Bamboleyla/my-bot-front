@@ -11,7 +11,7 @@ interface Props {
 
 export const Progress = ({ steps, activeStep }: Props) => {
   return (
-    <div className={styles.progress} data-testid="progress">
+    <div className={styles.progress} data-testid="Progress">
       <Box sx={{ width: "100%" }}>
         <Stepper activeStep={activeStep}>
           {steps.map((label) => {

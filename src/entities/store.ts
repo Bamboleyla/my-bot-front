@@ -1,9 +1,9 @@
-import { userSlice } from "./user";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { userSlice } from "./user";
 import { registrationFormSlice } from "./registration";
 
 const rootReducer = combineReducers({
-  userAuth: userSlice.reducer,
+  user: userSlice.reducer,
   registrationForm: registrationFormSlice.reducer,
 });
 

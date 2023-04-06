@@ -2,13 +2,13 @@ import { AppDispatch } from "../../entities/store";
 
 export const formatsResponse =
   (
-    action: any,
+    reducer: any,
     value: string = "",
     text: string = "Поле не может быть пустым"
   ) =>
   (dispatch: AppDispatch) => {
     dispatch(
-      action({
+      reducer({
         value,
         error: true,
         text,

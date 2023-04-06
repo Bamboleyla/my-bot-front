@@ -1,13 +1,13 @@
-import { API } from "./../base";
+import { API } from "../base";
 import MockAdapter from "axios-mock-adapter";
 import { logIn } from "./auth";
 
-const response = {
+const RESPONSE_BODY = {
   message: "Логин или Пароль указан неверно",
   errors: [],
 };
 
-const data = {
+const DATA = {
   email: "chatbots@list.ru",
   password: "Test123",
 };
@@ -25,25 +25,23 @@ describe("logIn", () => {
 
   describe("Успешный запрос", () => {
     it("Должен вернуть статус 200", async () => {
-      mock.onPost("http://localhost:5000/api/login").reply(200);
+      mock.onPost("/api/login").reply(200);
 
-      const result = await logIn(data);
+      const result = await logIn(DATA);
 
       expect(result.status).toBe(200);
       expect(result.config.url).toBe("/api/login");
-      expect(result.config.baseURL).toBe("http://localhost:5000");
+      expect(result.config.baseURL).toBe(API.defaults.baseURL);
       expect(result.data).toBeUndefined();
-      expect(result.config.data).toBe(
-        '{"email":"chatbots@list.ru","password":"Test123"}'
-      );
+      expect(result.config.data).toBe(JSON.stringify(DATA));
       expect(mock.history.post.length).toBe(1);
       expect(mock.history.post[0].method).toBe("post");
     });
   });
 
-  describe("неправильный, некорректный запрос", () => {
+  describe("Неправильный запрос", () => {
     it("Должен вернуть статус 400", async () => {
-      mock.onPost("http://localhost:5000/api/login").reply(400, response);
+      mock.onPost("/api/login").reply(400, RESPONSE_BODY);
 
       const data = {
         email: "chatbots@gmail.com",
@@ -54,11 +52,9 @@ describe("logIn", () => {
 
       expect(result.status).toBe(400);
       expect(result.config.url).toBe("/api/login");
-      expect(result.config.baseURL).toBe("http://localhost:5000");
-      expect(result.data).toEqual(response);
-      expect(result.config.data).not.toBe(
-        '{"email":"chatbots@list.ru","password":"Test123"}'
-      );
+      expect(result.config.baseURL).toBe(API.defaults.baseURL);
+      expect(result.data).toEqual(RESPONSE_BODY);
+      expect(result.config.data).not.toBe(JSON.stringify(DATA));
       expect(mock.history.post.length).toBe(1);
       expect(mock.history.post[0].method).toBe("post");
     });

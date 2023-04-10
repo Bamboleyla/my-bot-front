@@ -15,7 +15,7 @@ export const Authorization = () => {
     useAuth();
 
   return (
-    <div className={styles.form}>
+    <div className={styles.form} data-testid={"Authorization"}>
       <img src={Logo} alt="logo" />
       <div className={styles.wrap}>
         <Box sx={{ width: "40ch" }}>

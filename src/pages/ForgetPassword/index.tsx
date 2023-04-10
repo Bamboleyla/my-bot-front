@@ -19,7 +19,7 @@ export const ForgetPassword = () => {
   const display = useForgetPassword();
 
   return (
-    <div className={styles.forgetPassword}>
+    <div className={styles.forgetPassword} data-testid={"ForgetPassword"}>
       <Progress steps={steps} activeStep={formValues.activeStep} />
       <div className={styles.form}>
         {formValues.activeStep !== steps.length && <Title />}

@@ -7,7 +7,7 @@ import "@testing-library/jest-dom";
 
 const mockStore = configureStore([]);
 
-describe("Registration component", () => {
+describe("Registration", () => {
   const initialStore = {
     registrationForm: {
       data: {
@@ -85,7 +85,7 @@ describe("Registration component", () => {
       </MemoryRouter>
     );
 
-  it("should render Registration component with title", () => {
+  it("должен отрендерить конмоненты, которые помещены на странице, а именно: Progress, FormRegistration", () => {
     setup(store);
 
     const registration = screen.getByTestId("Registration");

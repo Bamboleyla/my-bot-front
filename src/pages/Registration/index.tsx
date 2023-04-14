@@ -8,8 +8,6 @@ import { useRegistration } from "../../features/registration";
 
 export const steps = ["Шаг1", "Шаг2", "Шаг3", "Шаг4", "Шаг5"];
 
-const Title = () => <div className={styles.title}>Регистрация</div>;
-
 export const Registration = () => {
   const formValues: IRegistrationState = useAppSelector(
     (state) => state.registrationForm
@@ -23,7 +21,7 @@ export const Registration = () => {
     <div className={styles.registration} data-testid={"Registration"}>
       <Progress steps={steps} activeStep={formValues.activeStep} />
       <div className={styles.form}>
-        <Title />
+        <div className={styles.title}>Регистрация</div>
         <FormRegistration
           formValues={formValues}
           config={getFields()}

@@ -20,7 +20,7 @@ describe("useFields", () => {
     expect(useDispatchMock).toBeCalled();
   });
 
-  it("Миссив с индексом 0 должен иметь определенные свойства и структуру", () => {
+  it("Массив с индексом 0 должен иметь определенные свойства и структуру", () => {
     const getFields = setup()[0];
 
     expect(getFields.length).toBe(3);

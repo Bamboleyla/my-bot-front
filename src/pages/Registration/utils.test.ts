@@ -32,7 +32,18 @@ describe("getPhoneNumberAccordingToTheTemplate()", () => {
       error: false,
       text: "",
     });
+    expect(
+      getPhoneNumberAccordingToTheTemplate(
+        "+7(999) 999 9999",
+        "+7(999) 999 9999 "
+      )
+    ).toEqual({
+      value: "+7(999) 999 999",
+      error: false,
+      text: "",
+    });
   });
+
   test("eсли пользователь пытается ввести номер более 11 символов", () => {
     expect(
       getPhoneNumberAccordingToTheTemplate("+7123456789011", "+7(123) 456 7890")
@@ -42,6 +53,7 @@ describe("getPhoneNumberAccordingToTheTemplate()", () => {
       text: "",
     });
   });
+
   test("процесс ввода номера", () => {
     expect(getPhoneNumberAccordingToTheTemplate("+79", "+7")).toEqual({
       value: "+7(9",
@@ -85,45 +97,76 @@ describe("getPhoneNumberAccordingToTheTemplate()", () => {
       text: "",
     });
   });
+
   test("процесс удаления символов", () => {
     expect(
-      getPhoneNumberAccordingToTheTemplate("+7999999999", "+79999999999")
+      getPhoneNumberAccordingToTheTemplate(
+        "+7(999) 999 999",
+        "+7(999) 999 9999"
+      )
     ).toEqual({
       value: "+7(999) 999 999",
       error: false,
       text: "",
     });
     expect(
-      getPhoneNumberAccordingToTheTemplate("+79999999", "+7999999999")
+      getPhoneNumberAccordingToTheTemplate("+7(999) 999 9", "+7(999) 999 999")
     ).toEqual({
       value: "+7(999) 999 9",
       error: false,
       text: "",
     });
     expect(
-      getPhoneNumberAccordingToTheTemplate("+7999999", "+79999999")
+      getPhoneNumberAccordingToTheTemplate("+7(999) 999 ", "+7(999) 999 9")
     ).toEqual({
       value: "+7(999) 999 ",
       error: false,
       text: "",
     });
-    expect(getPhoneNumberAccordingToTheTemplate("+79999", "+7999999")).toEqual({
+    expect(
+      getPhoneNumberAccordingToTheTemplate("+7(999) 999", "+7(999) 999 ")
+    ).toEqual({
+      value: "+7(999) 99",
+      error: false,
+      text: "",
+    });
+    expect(
+      getPhoneNumberAccordingToTheTemplate("+7(999) 9", "+7(999) 999")
+    ).toEqual({
       value: "+7(999) 9",
       error: false,
       text: "",
     });
-    expect(getPhoneNumberAccordingToTheTemplate("+7999", "+799999")).toEqual({
-      value: "+7(999) ",
-      error: false,
-      text: "",
-    });
-    expect(getPhoneNumberAccordingToTheTemplate("+79", "+799")).toEqual({
+    expect(getPhoneNumberAccordingToTheTemplate("+7(999)", "+7(999) ")).toEqual(
+      {
+        value: "+7(99",
+        error: false,
+        text: "",
+      }
+    );
+    expect(getPhoneNumberAccordingToTheTemplate("+7(9", "+7(99")).toEqual({
       value: "+7(9",
       error: false,
       text: "",
     });
-    expect(getPhoneNumberAccordingToTheTemplate("+7", "+79")).toEqual({
+    expect(getPhoneNumberAccordingToTheTemplate("+7(", "+7(9")).toEqual({
       value: "+7(",
+      error: false,
+      text: "",
+    });
+    expect(getPhoneNumberAccordingToTheTemplate("+7(999", "+7(999)")).toEqual({
+      value: "+7(99",
+      error: false,
+      text: "",
+    });
+
+    expect(getPhoneNumberAccordingToTheTemplate("+7", "+7(")).toEqual({
+      value: "+7(",
+      error: false,
+      text: "",
+    });
+    expect(getPhoneNumberAccordingToTheTemplate("", "+7")).toEqual({
+      value: "",
       error: false,
       text: "",
     });

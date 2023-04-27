@@ -36,9 +36,6 @@ const removesDigitsFromPhoneNumber = (
   let numberIndex = phoneNumber.length - 1;
 
   switch (indexOfDeletedCharacter) {
-    case 0:
-      numberIndex = 0;
-      break;
     case 2:
       numberIndex = 1;
       break;

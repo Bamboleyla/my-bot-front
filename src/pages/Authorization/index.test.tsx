@@ -1,94 +1,13 @@
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 import { Authorization } from ".";
-import { Provider } from "react-redux";
-import { MemoryRouter } from "react-router-dom";
-import configureStore from "redux-mock-store";
 import * as router from "react-router";
-
-const mockStore = configureStore([]);
+import { setup } from "../../shared/forTests";
 
 describe("Authorization", () => {
-  const initialStore = {
-    registrationForm: {
-      data: {
-        firstName: {
-          value: "",
-          error: false,
-          errorText: "",
-        },
-        lastName: {
-          value: "",
-          error: false,
-          errorText: "",
-        },
-        middleName: {
-          value: "",
-          error: false,
-          errorText: "",
-        },
-        phoneNumber: {
-          value: "+7",
-          error: false,
-          errorText: "",
-        },
-        email: {
-          value: "",
-          error: false,
-          errorText: "",
-        },
-        country: {
-          value: "Россия",
-          error: false,
-          errorText: "",
-        },
-        city: {
-          value: "",
-          error: false,
-          errorText: "",
-        },
-        tgToken: {
-          value: "",
-          error: false,
-          errorText: "",
-        },
-        password: {
-          value: "",
-          error: false,
-          errorText: "",
-        },
-        repeatPassword: {
-          value: "",
-          error: false,
-          errorText: "",
-        },
-        emailCode: {
-          value: "",
-          error: false,
-          errorText: "",
-        },
-      },
-      isLoading: [],
-      activeStep: 0,
-    },
-  };
-
-  const store = mockStore(initialStore);
-
-  type Store = typeof store;
-
-  const setup = (store: Store) =>
-    render(
-      <MemoryRouter>
-        <Provider store={store}>
-          <Authorization />
-        </Provider>
-      </MemoryRouter>
-    );
-
   it("должен отрендерить конмоненты, которые помещены на странице, а именно: logo, email, PasswordField, Вход, Регистрация, Забыли пароль?", () => {
-    setup(store);
+    setup(Authorization);
 
     const auth = screen.getByTestId("Authorization");
     const img = screen.getByAltText("logo");
@@ -112,7 +31,7 @@ describe("Authorization", () => {
 
     jest.spyOn(router, "useNavigate").mockImplementation(() => navigate);
 
-    setup(store);
+    setup(Authorization);
 
     const registration = screen.getByText("Регистрация");
 

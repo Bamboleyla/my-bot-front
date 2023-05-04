@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import { IformValues } from "../../models";
 
 export interface IField {

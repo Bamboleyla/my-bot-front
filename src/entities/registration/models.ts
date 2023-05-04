@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 export interface IRegistrationState {
   data: IRegistrationStateDate;
   isLoading: string[];

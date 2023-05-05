@@ -21,7 +21,7 @@ export const App = () => {
   }, []);
 
   return (
-    <div className={style}>
+    <div className={style} data-testid={"App"}>
       <div className={style}>
         <Routing />
       </div>

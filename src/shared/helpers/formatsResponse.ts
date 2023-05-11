@@ -6,7 +6,7 @@ export const formatsResponse =
     value: string = "",
     text: string = "Поле не может быть пустым"
   ) =>
-  (dispatch: AppDispatch) => {
+  (dispatch: AppDispatch): void => {
     dispatch(
       reducer({
         value,
@@ -14,5 +14,4 @@ export const formatsResponse =
         text,
       })
     );
-    return true;
   };

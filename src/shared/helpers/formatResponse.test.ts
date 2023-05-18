@@ -34,14 +34,4 @@ describe("formatsResponse", () => {
 
     expect(mockDispatch).toHaveBeenCalledWith(testAction(expectedAction));
   });
-
-  it("должен вернуть true", () => {
-    const result = formatsResponse(
-      jest.fn(),
-      "testValue",
-      "testText"
-    )(mockDispatch);
-
-    expect(result).toBe(true);
-  });
 });

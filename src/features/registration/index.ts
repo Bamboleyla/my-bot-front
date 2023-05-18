@@ -101,8 +101,7 @@ export const useRegistration = (): IuseRegistration => {
             formatsResponse(setPhoneNumber, "+7", "Укажите свой номер телефона")
           );
           isThereError = true;
-        }
-        if (phoneNumber.value.length < 16) {
+        } else if (phoneNumber.value.length !== 16) {
           dispatch(
             formatsResponse(
               setPhoneNumber,
@@ -155,8 +154,7 @@ export const useRegistration = (): IuseRegistration => {
         if (repeatPassword.value === "") {
           dispatch(formatsResponse(setRepeatPassword));
           isThereError = true;
-        }
-        if (repeatPassword.value !== password.value) {
+        } else if (repeatPassword.value !== password.value) {
           dispatch(
             formatsResponse(
               setRepeatPassword,
@@ -171,14 +169,16 @@ export const useRegistration = (): IuseRegistration => {
           dispatch(formatsResponse(setPassword, password.value, message));
           isThereError = true;
         };
-        if (password.value.length < 6)
-          result("Пароль не может быть короче 6 символов");
-        if (!/[A-Z]/g.test(password.value))
-          result("Пароль должен содержать хотя бы одну заглавную букву");
-        if (!/[a-z]/g.test(password.value))
-          result("Пароль должен содержать хотя бы одну строчную букву");
-        if (!/[0-9]/g.test(password.value))
-          result("Пароль должен содержать хотя бы одну цифру");
+        if (password.value !== "") {
+          if (password.value.length < 6)
+            result("Пароль не может быть короче 6 символов");
+          else if (!/[A-Z]/g.test(password.value))
+            result("Пароль должен содержать хотя бы одну заглавную букву");
+          else if (!/[a-z]/g.test(password.value))
+            result("Пароль должен содержать хотя бы одну строчную букву");
+          else if (!/[0-9]/g.test(password.value))
+            result("Пароль должен содержать хотя бы одну цифру");
+        }
         if (!isThereError) {
           registerNewUser({
             firstName: firstName.value,
@@ -203,16 +203,15 @@ export const useRegistration = (): IuseRegistration => {
         if (emailCode.value === "") {
           dispatch(formatsResponse(setEmailCode));
           isThereError = true;
-        }
-
-        if (emailCode.value.length !== 4 || /\D/g.test(emailCode.value)) {
+        } else if (
+          emailCode.value.length !== 4 ||
+          /\D/g.test(emailCode.value)
+        ) {
           dispatch(
             formatsResponse(setEmailCode, emailCode.value, "Код неверный")
           );
           isThereError = true;
-        }
-
-        if (!isThereError) {
+        } else if (!isThereError) {
           dispatch(ChekEmailCode(email.value, emailCode.value, navigate));
         }
         break;

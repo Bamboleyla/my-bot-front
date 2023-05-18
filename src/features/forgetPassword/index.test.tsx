@@ -1,5 +1,6 @@
 import { renderHook } from "@testing-library/react";
 import { Provider } from "react-redux";
+import { BrowserRouter } from "react-router-dom";
 import { AppStore, setupStore } from "../../entities/store";
 import { useForgetPassword } from ".";
 import * as Router from "react-router";
@@ -8,7 +9,6 @@ import * as Helper from "../../shared/helpers/formatsResponse";
 import * as Registered from "../../entities/registration/actions";
 import * as Actions from "../../entities/forgetPassword/actions";
 import * as FormSlice from "../../entities/registration";
-import { BrowserRouter } from "react-router-dom";
 
 describe("useForgetPassword", () => {
   const {
@@ -46,6 +46,7 @@ describe("useForgetPassword", () => {
   };
 
   describe("nextStep", () => {
+    // TODO Можно на каждом activeStep проводить несколько проверок, а не каждый случай в отдельности, посмотри как ты сделал в registration
     describe("activeStep===0", () => {
       it('При email.value === "" должен произойти вызов formatsResponse(setEmail)', () => {
         const store: AppStore = setupStore();

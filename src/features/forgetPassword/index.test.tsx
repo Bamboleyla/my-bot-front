@@ -17,6 +17,7 @@ describe("useForgetPassword", () => {
     setRepeatPassword,
     setActiveStep,
     setEmailCode,
+    addLoadingProcess,
   } = FormSlice.registrationFormSlice.actions;
 
   const setup = (store: AppStore): ReturnType<typeof useForgetPassword> => {
@@ -460,6 +461,88 @@ describe("useForgetPassword", () => {
       expect(Helper.formatsResponse).not.toBeCalled();
       expect(Actions.sendСodeToEmail).not.toBeCalled();
       expect(Actions.changePassword).not.toBeCalled();
+    });
+  });
+
+  describe("getLoadingStatus", () => {
+    it("isLoading.length === 0 должен вурнуть false", () => {
+      const store: AppStore = setupStore();
+
+      jest.spyOn(Router, "useNavigate").mockImplementation(() => navigate);
+      jest.spyOn(ReactRedux, "useAppDispatch").mockReturnValue(useDispatchMock);
+
+      const { getLoadingStatus } = setup(store);
+
+      expect(getLoadingStatus()).toBeFalsy();
+    });
+
+    it("isLoading.length !== 0 должен вурнуть true", () => {
+      const store: AppStore = setupStore();
+
+      store.dispatch(addLoadingProcess({ value: "someProcess" }));
+
+      jest.spyOn(Router, "useNavigate").mockImplementation(() => navigate);
+      jest.spyOn(ReactRedux, "useAppDispatch").mockReturnValue(useDispatchMock);
+
+      const { getLoadingStatus } = setup(store);
+
+      expect(getLoadingStatus()).toBeTruthy();
+    });
+  });
+
+  describe("previousStep", () => {
+    it('activeStep === 0 должен вызвать navigate("/auth")', () => {
+      const store: AppStore = setupStore();
+
+      jest.spyOn(Router, "useNavigate").mockImplementation(() => navigate);
+      jest.spyOn(ReactRedux, "useAppDispatch").mockReturnValue(useDispatchMock);
+
+      const { previousStep } = setup(store);
+
+      previousStep();
+
+      expect(navigate).toBeCalledWith("/auth");
+    });
+
+    it("activeStep !== 0 должен вызвать setActiveStep({ value: activeStep - 1 })", () => {
+      const store: AppStore = setupStore();
+
+      store.dispatch(setActiveStep({ value: 1 }));
+
+      jest.spyOn(Router, "useNavigate").mockImplementation(() => navigate);
+      jest.spyOn(ReactRedux, "useAppDispatch").mockReturnValue(useDispatchMock);
+
+      const { previousStep } = setup(store);
+
+      previousStep();
+
+      expect(useDispatchMock).toBeCalledWith(setActiveStep({ value: 0 }));
+    });
+  });
+
+  describe("getButtonTitle", () => {
+    it('Если activeStep !== steps.length - 1 должен вернуть строку "Вперёд"', () => {
+      const store: AppStore = setupStore();
+
+      jest.spyOn(Router, "useNavigate").mockImplementation(() => navigate);
+      jest.spyOn(ReactRedux, "useAppDispatch").mockReturnValue(useDispatchMock);
+
+      const { getButtonTitle } = setup(store);
+
+      expect(getButtonTitle()).toBe("Вперёд");
+    });
+
+    it('Если activeStep === steps.length - 1 должен вернуть строку "Отправить данные"', () => {
+      const store: AppStore = setupStore();
+
+      store.dispatch(setActiveStep({ value: 4 }));
+
+      jest.spyOn(Router, "useNavigate").mockImplementation(() => navigate);
+      jest.spyOn(ReactRedux, "useAppDispatch").mockReturnValue(useDispatchMock);
+
+      const { getButtonTitle } = setup(store);
+
+      expect(getButtonTitle()).toBe("Отправить данные");
     });
   });
 });

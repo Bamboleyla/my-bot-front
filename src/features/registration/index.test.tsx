@@ -575,6 +575,27 @@ describe("useRegistration", () => {
         expect(Registration.ChekEmailCode).toBeCalledWith("", "1234", navigate);
       });
     });
+
+    test("Неверное значение activeStep===5", () => {
+      const store: AppStore = setupStore();
+
+      store.dispatch(setActiveStep({ value: 5 }));
+
+      jest.spyOn(Router, "useNavigate").mockImplementation(() => navigate);
+      jest.spyOn(ReactRedux, "useAppDispatch").mockReturnValue(useDispatchMock);
+      jest.spyOn(Helper, "formatsResponse").mockReturnValue(jest.fn());
+
+      const { nextStep } = setup(store);
+
+      nextStep();
+
+      expect(Router.useNavigate).toBeCalledTimes(1);
+      expect(ReactRedux.useAppDispatch).toBeCalledTimes(1);
+      expect(Helper.formatsResponse).not.toBeCalled();
+      expect(Registration.ChekEmailCode).not.toBeCalled();
+      expect(Registration.IsValueAlreadyRegistered).not.toBeCalled();
+      expect(NewUser.registerNewUser).not.toBeCalled();
+    });
   });
 
   describe("getLoadingStatus", () => {

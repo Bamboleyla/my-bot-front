@@ -57,11 +57,14 @@ export const useRegistration = (): IuseRegistration => {
   useEffect(() => {
     switch (activeStep) {
       case 1:
-        if (isLoading.length === 0 && !phoneNumber.error && !email.error)
+        isLoading.length === 0 &&
+          !phoneNumber.error &&
+          !email.error &&
           dispatch(setActiveStep({ value: activeStep + 1 }));
         break;
       case 2:
-        if (isLoading.length === 0 && !tgToken.error)
+        isLoading.length === 0 &&
+          !tgToken.error &&
           dispatch(setActiveStep({ value: activeStep + 1 }));
         break;
       default:
@@ -202,7 +205,6 @@ export const useRegistration = (): IuseRegistration => {
         // Код для активации акаунта состоит из строки 4 цифры
         if (emailCode.value === "") {
           dispatch(formatsResponse(setEmailCode));
-          isThereError = true;
         } else if (
           emailCode.value.length !== 4 ||
           /\D/g.test(emailCode.value)
@@ -210,8 +212,7 @@ export const useRegistration = (): IuseRegistration => {
           dispatch(
             formatsResponse(setEmailCode, emailCode.value, "Код неверный")
           );
-          isThereError = true;
-        } else if (!isThereError) {
+        } else {
           dispatch(ChekEmailCode(email.value, emailCode.value, navigate));
         }
         break;

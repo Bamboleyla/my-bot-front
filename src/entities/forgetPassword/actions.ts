@@ -14,15 +14,15 @@ export const sendСodeToEmail =
       );
       const { status } = await Api.forgetPassword.sendСodeToEmail(email);
       if (status === 200) {
-        dispatch(
-          registrationFormSlice.actions.deleteLoadingProcess({
-            value: "sendСodeToEmail",
-          })
-        );
         let message = "Новое Письмо!";
         let description = `Вам на ваш почтовый ящик ${email.email} выслано письмо с кодом активации акаунта`;
         notification.info({ message, description, placement: "topLeft" });
       }
+      dispatch(
+        registrationFormSlice.actions.deleteLoadingProcess({
+          value: "sendСodeToEmail",
+        })
+      );
     } catch (error: any) {
       console.error(error);
     }

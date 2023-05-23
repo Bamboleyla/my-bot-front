@@ -13,11 +13,12 @@ export const sendСodeToEmail =
         })
       );
       const { status } = await Api.forgetPassword.sendСodeToEmail(email);
+
       if (status === 200) {
         let message = "Новое Письмо!";
         let description = `Вам на ваш почтовый ящик ${email.email} выслано письмо с кодом активации акаунта`;
         notification.info({ message, description, placement: "topLeft" });
-      }
+      } else console.error(`Для status: ${status} неопределен сценарий`);
       dispatch(
         registrationFormSlice.actions.deleteLoadingProcess({
           value: "sendСodeToEmail",
@@ -40,19 +41,14 @@ export const changePassword =
           value: "changePassword",
         })
       );
-      const response = await Api.forgetPassword.changePassword(data);
-      if (response.status === 200) {
-        dispatch(
-          registrationFormSlice.actions.deleteLoadingProcess({
-            value: "changePassword",
-          })
-        );
+      const { status } = await Api.forgetPassword.changePassword(data);
+      if (status === 200) {
         let message = "Действие выполнено!";
         let description = `Пароль от  ${data.email} был успешно изменен`;
         notification.info({ message, description, placement: "topLeft" });
         dispatch(registrationFormSlice.actions.reset());
         navigate("/main");
-      } else if (response.status === 400)
+      } else if (status === 400)
         dispatch(
           registrationFormSlice.actions.setEmailCode({
             value: data.code,
@@ -60,7 +56,7 @@ export const changePassword =
             text: "Неверный код",
           })
         );
-      else console.error("Неизвестный ответ changePassword");
+      else console.error(`Для status: ${status} неопределен сценарий`);
       dispatch(
         registrationFormSlice.actions.deleteLoadingProcess({
           value: "changePassword",

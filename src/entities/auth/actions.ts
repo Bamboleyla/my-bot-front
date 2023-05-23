@@ -23,7 +23,7 @@ export const logIn =
           description: data.message,
           placement: "topLeft",
         });
-      }
+      } else console.error(`Для status: ${status} неопределен сценарий`);
       dispatch(
         registrationFormSlice.actions.deleteLoadingProcess({
           value: "logIn",

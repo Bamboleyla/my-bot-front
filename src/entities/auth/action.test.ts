@@ -79,6 +79,30 @@ describe("logIn", () => {
     });
   });
 
+  it(`Если Api.auth.logIn({ email, password }) вернул status===500, должны произойти вызовы:
+  1.registrationFormSlice.actions.addLoadingProcess({ value: "logIn", })
+  2.console.error(Для status неопределен сценарий),
+  3.registrationFormSlice.actions.deleteLoadingProcess({ value: "logIn", })`, async () => {
+    jest.spyOn(Api.auth, "logIn").mockResolvedValue({
+      status: 500,
+      data: { message: "server error" },
+    } as AxiosResponse<any>);
+
+    const consoleSpy = jest.spyOn(console, "error");
+
+    await store.dispatch(logIn(email, password, navigate));
+
+    const actions = store.getActions();
+
+    expect(actions).toEqual([
+      registrationFormSlice.actions.addLoadingProcess(data),
+      registrationFormSlice.actions.deleteLoadingProcess(data),
+    ]);
+    expect(consoleSpy).toHaveBeenCalledWith(
+      `Для status: 500 неопределен сценарий`
+    );
+  });
+
   test("catch (error)", async () => {
     jest.spyOn(Api.auth, "logIn").mockRejectedValueOnce(error);
 

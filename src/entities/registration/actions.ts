@@ -29,7 +29,7 @@ export const IsValueAlreadyRegistered =
             text: message,
           })
         );
-
+      // TODO Зачем использовать responseEmail.data в качестве статуса выполнения операции?
       switch (process) {
         // Используется при регистрации, когда важно что-бы email не был зарегестрирован
         case "IsThisEmailFree":

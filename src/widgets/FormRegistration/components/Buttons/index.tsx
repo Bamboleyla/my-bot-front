@@ -1,7 +1,7 @@
 import * as React from "react";
 import styles from "./styles.module.scss";
 import { Button, Box } from "@mui/material";
-import { IuseRegistration } from "../../../../../features/registration";
+import { IuseRegistration } from "../../../../features/registration";
 
 export const Buttons = ({
   getLoadingStatus,

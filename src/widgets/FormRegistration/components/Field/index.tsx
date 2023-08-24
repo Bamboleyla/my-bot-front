@@ -1,5 +1,5 @@
 import TextField from "@mui/material/TextField";
-import { PasswordField } from "../../../PasswordField";
+import { PasswordField } from "../../../../shared/components/PasswordField";
 import { IField } from "./models";
 
 export const Field = ({

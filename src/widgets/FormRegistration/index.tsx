@@ -1,7 +1,7 @@
 import { Box } from "@mui/system";
+import { memo } from "react";
 import { Fields } from "./components/Fields";
 import { Buttons } from "./components/Buttons";
-import { memo } from "react";
 import { IFormRegistration } from "./models";
 
 export const FormRegistration = memo(

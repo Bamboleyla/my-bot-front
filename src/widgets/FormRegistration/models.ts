@@ -1,6 +1,6 @@
 /* istanbul ignore file */
-import { IuseRegistration } from "../../../features/registration";
-import { IgetFields } from "../../../pages/Registration/data";
+import { IuseRegistration } from "../../features/registration";
+import { IgetFields } from "../../pages/Registration/data";
 
 export interface IformValues {
   data: {

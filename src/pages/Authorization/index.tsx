@@ -5,7 +5,7 @@ import Logo from "./public/bots.jpg";
 import { LoginField } from "./components/LoginField";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../features/auth";
-import { PasswordField } from "../../shared/ui/PasswordField";
+import { PasswordField } from "../../shared/components/PasswordField";
 import { Box } from "@mui/system";
 
 export const Authorization = () => {

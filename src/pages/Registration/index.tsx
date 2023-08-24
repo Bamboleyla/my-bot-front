@@ -1,10 +1,10 @@
 import styles from "./styles.module.scss";
-import { Progress } from "../../shared/ui/Progress";
+import { Progress } from "../../shared/components/Progress";
 import { useAppSelector } from "../../app/redux";
 import { IRegistrationState } from "../../entities/registration/models";
-import { FormRegistration } from "../../shared/ui/FormRegistration";
 import { useFields } from "./data";
 import { useRegistration } from "../../features/registration";
+import { FormRegistration } from "../../widgets/FormRegistration";
 
 export const steps = ["Шаг1", "Шаг2", "Шаг3", "Шаг4", "Шаг5"];
 

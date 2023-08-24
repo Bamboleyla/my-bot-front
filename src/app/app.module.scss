@@ -1,0 +1,21 @@
+@import "./index.scss";
+
+.app_light_mode,
+.app_dark_mode {
+  margin-top: -50px;
+  padding-top: 50px;
+}
+
+.body_light_mode,
+.body_dark_mode {
+  background-color: var(--tg-theme-bg-color);
+  color: var(--tg-theme-text-color);
+  width: 1074px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.body_dark_mode,
+.app_dark_mode {
+  background-color: $bg_dark-mode;
+}

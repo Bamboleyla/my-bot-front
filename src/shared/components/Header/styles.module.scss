@@ -1,8 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Russo+One&display=swap");
 
 .header {
-  width: 100wh;
+  width: 100vw;
   background-color: rgba(211, 211, 211, 0.44);
+  position: fixed;
+  margin: 0 auto;
   .body {
     width: 1920px;
     height: 100px;

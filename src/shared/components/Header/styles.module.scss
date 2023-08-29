@@ -1,0 +1,49 @@
+@import url("https://fonts.googleapis.com/css2?family=Russo+One&display=swap");
+
+.header {
+  width: 100wh;
+  background-color: rgba(211, 211, 211, 0.44);
+  .body {
+    width: 1920px;
+    height: 100px;
+    margin: 0 auto;
+    display: flex;
+    font-size: 32px;
+    .logo {
+      display: flex;
+      align-items: center;
+      &:hover {
+        cursor: pointer;
+      }
+      img {
+        margin: 20px 0 20px 180px;
+      }
+      .signature {
+        margin-left: 20px;
+        font-family: "Russo One", sans-serif;
+      }
+    }
+    .section {
+      display: flex;
+      width: 925px;
+      margin-left: 55px;
+      margin-top: 26px;
+      justify-content: space-between;
+      span {
+        transition-property: color;
+        transition-duration: 1s;
+        &:hover {
+          cursor: pointer;
+          color: white;
+        }
+      }
+    }
+    .buttons {
+      display: flex;
+      align-items: center;
+      height: 100px;
+      margin-left: 40px;
+      gap: 30px;
+    }
+  }
+}

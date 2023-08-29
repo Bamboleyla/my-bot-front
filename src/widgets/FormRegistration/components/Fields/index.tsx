@@ -1,6 +1,6 @@
 import { Stack } from "@mui/system";
 import { Field } from "../Field";
-import { FieldsSkeleton } from "../Skeleton";
+import { FieldsSkeleton } from "../../../../shared/components/FieldsSkeleton";
 import { IFields } from "./models";
 
 export const Fields = ({ config, formValues }: IFields) => {

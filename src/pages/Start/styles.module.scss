@@ -1,15 +1,17 @@
 .start {
-  .body {
-    width: 1920px;
-    height: 1280px;
-    background: url(../../shared/assets/beautySalon.png);
-    background-size: cover;
-    color: white;
+  height: 1280px;
+  background: url(../../shared/assets/beautySalon.png);
+  background-size: cover;
+  color: white;
+
+  .label {
+    position: relative;
+    top: 610px;
+    left: 1150px;
     .title {
       display: flex;
       font-family: "Russo One", sans-serif;
       font-size: 128px;
-      position: absolute;
       bottom: 306px;
       right: 345px;
       p {
@@ -17,10 +19,9 @@
       }
     }
     .slogan {
-      position: absolute;
-      bottom: 91px;
-      right: 196px;
       & :first-child {
+        bottom: 91px;
+        right: 196px;
         font-size: 96px;
         width: 804px;
         font-weight: bold;

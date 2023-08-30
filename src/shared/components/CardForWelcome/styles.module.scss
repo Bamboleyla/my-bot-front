@@ -1,0 +1,15 @@
+.body {
+  display: flex;
+  .text {
+    margin-left: 150px;
+    .title {
+      font-size: 48px;
+      font-weight: bold;
+      margin: 0;
+    }
+    .string {
+      font-size: 40px;
+      margin: 0 160px 0 0;
+    }
+  }
+}

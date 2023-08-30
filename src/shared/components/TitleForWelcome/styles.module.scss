@@ -1,0 +1,11 @@
+.title {
+  color: black;
+  :first-child {
+    margin: 0;
+    font-size: 64px;
+  }
+  :last-child {
+    margin: 0;
+    font-size: 48px;
+  }
+}

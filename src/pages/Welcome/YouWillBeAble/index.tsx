@@ -1,9 +1,9 @@
-import { TitleFromWelcome } from "../../shared/components/TitleForWelcome";
+import { TitleFromWelcome } from "../../../shared/components/TitleForWelcome";
 import styles from "./styles.module.scss";
-import efficiency from "../../shared/assets/efficiency.png";
-import newClients from "../../shared/assets/newClients.png";
-import simpleControl from "../../shared/assets/simplifyСontrol.png";
-import { CardForWelcome } from "../../shared/components/CardForWelcome";
+import efficiency from "../../../shared/assets/efficiency.png";
+import newClients from "../../../shared/assets/newClients.png";
+import simpleControl from "../../../shared/assets/simplifyСontrol.png";
+import { CardForWelcome } from "../../../shared/components/CardForWelcome";
 
 const config = [
   {
@@ -49,8 +49,8 @@ export const YouWillBeAble = () => {
         description="ваш бизнес получает возможности:"
       />
       <div className={styles.cards}>
-        {config.map(({ img, title, description }) => (
-          <CardForWelcome img={img} title={title} description={description} />
+        {config.map((item) => (
+          <CardForWelcome key={item.title} {...item} />
         ))}
       </div>
     </div>

@@ -12,8 +12,12 @@ export const CardForWelcome = ({ img, title, description }: Props) => {
       <img src={img} alt="imgCard" />
       <div className={styles.text}>
         <p className={styles.title}>{title}</p>
-        {description.map((string) => {
-          return <p className={styles.string}>{string}</p>;
+        {description.map((string, index) => {
+          return (
+            <p key={index} className={styles.string}>
+              {string}
+            </p>
+          );
         })}
       </div>
     </div>

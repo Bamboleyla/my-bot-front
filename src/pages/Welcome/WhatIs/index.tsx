@@ -1,10 +1,10 @@
-import { CardForWelcome } from "../../shared/components/CardForWelcome";
-import { TitleFromWelcome } from "../../shared/components/TitleForWelcome";
+import { CardForWelcome } from "../../../shared/components/CardForWelcome";
+import { TitleFromWelcome } from "../../../shared/components/TitleForWelcome";
 import styles from "./styles.module.scss";
-import owner from "../../shared/assets/owner.png";
-import admin from "../../shared/assets/administrator.png";
-import master from "../../shared/assets/master.png";
-import client from "../../shared/assets/client.png";
+import owner from "../../../shared/assets/owner.png";
+import admin from "../../../shared/assets/administrator.png";
+import master from "../../../shared/assets/master.png";
+import client from "../../../shared/assets/client.png";
 
 const config = [
   {
@@ -57,14 +57,14 @@ const config = [
 
 export const WhatIs = () => {
   return (
-    <div className={styles.whatIs} data-testid={"WhatIs"}>
+    <div className={styles.component} data-testid={"WhatIs"}>
       <TitleFromWelcome
         title="Что такое Ядро?"
         description="Это облачное решение позволяет:"
       />
       <div className={styles.cards}>
-        {config.map(({ img, title, description }) => (
-          <CardForWelcome img={img} title={title} description={description} />
+        {config.map((item) => (
+          <CardForWelcome key={item.title} {...item} />
         ))}
       </div>
     </div>

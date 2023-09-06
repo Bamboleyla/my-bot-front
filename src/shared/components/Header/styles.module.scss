@@ -1,6 +1,6 @@
 .header {
   width: 100vw;
-  background-color: rgba(211, 211, 211, 0.44);
+  background-color: rgba(0, 0, 0, 0.44);
   position: fixed;
   left: 0;
   .body {
@@ -9,6 +9,7 @@
     margin: 0 auto;
     display: flex;
     font-size: 32px;
+    color: white;
     .logo {
       display: flex;
       align-items: center;

@@ -1,4 +1,5 @@
 import { Header } from "../../shared/components/Header";
+import { OurRates } from "./OurRates";
 import { Start } from "./Start";
 import { WhatIs } from "./WhatIs";
 import { WhoIsItFor } from "./WhoIsItFor";
@@ -13,6 +14,7 @@ export const Welcome = () => {
       <WhatIs />
       <YouWillBeAble />
       <WhoIsItFor />
+      <OurRates />
     </div>
   );
 };

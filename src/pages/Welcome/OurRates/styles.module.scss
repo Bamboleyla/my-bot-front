@@ -1,0 +1,10 @@
+@import "../../../shared/styles/whatIsCards";
+
+.component {
+  background-color: rgba(252, 254, 170, 1);
+  padding: 60px 160px;
+  display: flex;
+  gap: 10px;
+  justify-content: space-around;
+  text-align: center;
+}

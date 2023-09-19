@@ -67,7 +67,11 @@ const config = [
 
 export const WhoIsItFor = () => {
   return (
-    <div className={styles.component} data-testid={"WhoIsItFor"}>
+    <div
+      id="WhoIsItFor"
+      className={styles.component}
+      data-testid={"WhoIsItFor"}
+    >
       <TitleFromWelcome
         title="Для кого разработано Ядро?"
         description="Программа идеально подходит для:"

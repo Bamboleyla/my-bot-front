@@ -20,9 +20,10 @@ const config = [
 
 export const OurRates = () => {
   return (
-    <div className={styles.component} data-testid={"OurRates"}>
+    <div id="OurRates" className={styles.component} data-testid={"OurRates"}>
       {config.map(({ img, title, subTitle, description }) => (
         <CardForOurRates
+          key={title}
           img={img}
           title={title}
           subTitle={subTitle}

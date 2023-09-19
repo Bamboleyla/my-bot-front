@@ -31,11 +31,12 @@
       margin-top: 26px;
       justify-content: space-between;
       span {
+        height: fit-content;
         transition-property: color;
-        transition-duration: 1s;
+        transition-duration: 0.5s;
         &:hover {
           cursor: pointer;
-          color: white;
+          color: #4096ff;
         }
       }
     }

@@ -43,11 +43,7 @@ const config = [
 
 export const YouWillBeAble = () => {
   return (
-    <div
-      id="YouWillBeAble"
-      className={styles.youWillBeAble}
-      data-testid={"YouWillBeAble"}
-    >
+    <div className={styles.youWillBeAble} data-testid={"YouWillBeAble"}>
       <TitleFromWelcome
         title="Благодаря Ядру,"
         description="ваш бизнес получает возможности:"

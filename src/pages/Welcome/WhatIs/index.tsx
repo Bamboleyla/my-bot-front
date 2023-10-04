@@ -57,7 +57,7 @@ const config = [
 
 export const WhatIs = () => {
   return (
-    <div id="WhatIs" className={styles.component} data-testid={"WhatIs"}>
+    <div className={styles.component} data-testid={"WhatIs"}>
       <TitleFromWelcome
         title="Что такое Ядро?"
         description="Это облачное решение позволяет:"
